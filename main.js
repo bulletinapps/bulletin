@@ -1,7 +1,7 @@
 //-------------------------------Database-------------------------------\\
 // Import functions
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"
-import { getDatabase, set, ref, push, onChildAdded} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"
+import { getDatabase, set, ref, push, remove, onChildAdded} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"
 
   // Your web app's Firebase configuration
   const firebaseConfig = {
@@ -41,12 +41,19 @@ document.onkeyup = function(e){
 onChildAdded(ref(db, "global"), (data) =>{
     //------------Data from firebase------------\\
     let noteContents = data.val()
+    let key = data.key
     //------------Note Creation------------\\
     let note = document.createElement("div")
+    note.id = key
     note.classList.add("note")
     note.innerHTML = noteContents.text
     note.style.rotate = parseInt((Math.random()*5 + 1)*Math.pow(-1, parseInt(Math.random()*2 + 1))) + "deg"
     //------------Append to board------------\\
     board.appendChild(note)
     //------------Remove Element------------\\
+    note.addEventListener("click", function(){
+        remove(ref(db, "global/" + key))
+        document.getElementById(key).remove()
+    })
 })
+
