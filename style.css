@@ -1,0 +1,69 @@
+.boardContainer{
+    width: 50%;
+    height: 70%;
+    position: relative;
+    display: block;
+}
+
+.board{
+    display: grid;
+    border: solid black 3px;
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, 125px);
+    grid-template-rows: repeat(auto-fit, 125px);
+    position: relative;
+}
+
+.note{
+    width: 100px;
+    height: 100px;
+    background-color: aquamarine;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 10px;
+    transition: .2s ease;
+}
+
+.note:hover{
+    transform: rotate(-7deg);
+}
+
+.inputArea{
+    position: absolute;
+    z-index: 2;
+    top: 90%;
+    left: 5%;
+    width: 90%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+}
+
+#inputBox{
+    width: 80%;
+    height: 70%;
+    background-color: gainsboro;
+    opacity: 0.5;
+    border: gray solid 2px;
+    border-radius: 10px;
+    padding: 0 5px;
+}
+
+#submitButton{
+    width: 10%;
+    height: 70%;
+    background-color: gainsboro;
+    opacity: 0.5;
+    border: gray solid 2px;
+    border-radius: 10px;
+    font-size: 24px;
+    margin: 0 10px;
+    text-align: center;
+    cursor: pointer;
+}
