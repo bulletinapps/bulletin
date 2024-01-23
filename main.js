@@ -19,6 +19,7 @@ import { getDatabase, set, ref, push, remove, onChildAdded} from "https://www.gs
 //-------------------------------Database-------------------------------\\
 let board = document.getElementById("board")
 let inputBox = document.getElementById("inputBox")
+let colorBox = document.getElementById("colorBox")
 let submitButton = document.getElementById("submitButton")
 //-------------------------------Uploads Messages-------------------------------\\
 function sendMessage(){
@@ -26,7 +27,8 @@ function sendMessage(){
         const boardRef = ref(db, "global")
         const pushBoardRef = push(boardRef)
         set(pushBoardRef,{ 
-            text: inputBox.value
+            text: inputBox.value,
+            color: colorBox.value
         })
         inputBox.value = ""
     }
@@ -38,22 +40,49 @@ document.onkeyup = function(e){
     }
 }
 //---------------------Loads Messages---------------------\\
+function addNote(id, text, color){
+    //------------Note Creation------------\\
+    let note = document.createElement("div")
+    note.id = id
+    note.classList.add("note")
+    note.innerHTML = text
+    note.style.rotate = parseInt((Math.random()*3 + 1)*Math.pow(-1, parseInt(Math.random()*2 + 1))) + "deg"
+    //------------Pin Icon------------\\
+    let pinIcon = document.createElement("img")
+    pinIcon.classList.add("pinIcon")
+    pinIcon.style.color = "yellow"
+    pinIcon.src = "https://static.vecteezy.com/system/resources/thumbnails/012/419/385/small/red-notepaper-pin-ilustration-push-pin-isolated-on-the-white-background-free-png.png"
+    note.appendChild(pinIcon)
+    //------------Hover Icon------------\\
+    let hoverIcon = document.createElement("i")
+    hoverIcon.classList.add("bi-check-circle")
+    hoverIcon.classList.add("hoverIcon")
+    note.appendChild(hoverIcon)
+    //------------Color------------\\
+    if(color != null){
+        note.style.backgroundColor = color
+    } else{
+        note.style.backgroundColor = "rgb(238, 221, 70)"
+    }
+     //------------Append Note------------\\
+    board.appendChild(note)
+    //------------Remove Element------------\\
+    note.addEventListener("click", function(){
+        document.getElementById(id).remove()
+    })
+    //------------Return------------\\
+    return note
+}
+
 onChildAdded(ref(db, "global"), (data) =>{
     //------------Data from firebase------------\\
     let noteContents = data.val()
     let key = data.key
-    //------------Note Creation------------\\
-    let note = document.createElement("div")
-    note.id = key
-    note.classList.add("note")
-    note.innerHTML = noteContents.text
-    note.style.rotate = parseInt((Math.random()*5 + 1)*Math.pow(-1, parseInt(Math.random()*2 + 1))) + "deg"
-    //------------Append to board------------\\
-    board.appendChild(note)
+    let note = addNote(key, noteContents.text, noteContents.color)
     //------------Remove Element------------\\
     note.addEventListener("click", function(){
         remove(ref(db, "global/" + key))
-        document.getElementById(key).remove()
     })
 })
 
+addNote("TestNote", "Hello!")

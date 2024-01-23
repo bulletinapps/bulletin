@@ -21,18 +21,42 @@
 .note{
     width: 100px;
     height: 100px;
-    background-color: aquamarine;
     display: flex;
     text-align: center;
     align-items: center;
     justify-content: center;
     margin: 10px 10px;
     transition: .2s ease;
+    position: relative;
 }
 
 .note:hover{
     transform: rotate(-7deg);
 }
+
+.hoverIcon{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .3s ease;
+    color: rgb(0, 0, 0);
+    font-size: 50px;
+    top: 25%;
+    text-align: center;
+}
+
+.pinIcon{
+    position: absolute;
+    top: -8%;
+    left: 35%;
+    height: 30px;
+    width: 30px;
+}
+
+.note:hover .hoverIcon{
+    opacity: 1
+} 
 
 .inputArea{
     position: absolute;
