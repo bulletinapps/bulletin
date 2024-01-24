@@ -1,0 +1,114 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+    <div style="border: black solid; border-radius: 10px; max-width: 500px; margin: 20px">
+        <h2 class="w-26 m-4" style="max-width: 1000px;">Login</h2>
+        <form id="loginForm" class="w-26 m-4" submit="return false">
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="emailInputLogin" placeholder="Email">
+                <label for="emailInputLogin">Email</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="passwordInputLogin" placeholder="Password">
+                <label for="passwordInputLogin">Password</label>
+            </div>
+        </form>
+        <button class="btn btn-primary" id="loginButton" style="width: 100%; background-color:rgb(230, 227, 90); border: rgb(230, 227, 90) solid">Login</button>
+    </div>
+    <div  style="border: black solid; border-radius: 10px; max-width: 500px; margin: 20px">
+        <h2 class="w-26 m-4" style="max-width: 1000px;">Sign Up </h2>
+        <form id="signupForm" class="w-26 m-4" submit="return false">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="usernameInputSignUp" placeholder="Username">
+                <label for="usernameInputSignUp">Username</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="emailInputSignUp" placeholder="Email">
+                <label for="emailInputSignUp">Email</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="passwordInputSignUp" placeholder="Password">
+                <label for="passwordInputSignUp">Password</label>
+            </div>
+        </form>
+        <button class="btn btn-primary" id="signupButton" style="width: 100%; background-color:darkseagreen; border: darkseagreen solid">Sign Up</button>
+    </div>
+    <script type="module">
+        //-------------------------------Database-------------------------------\\
+        // Import functions
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"
+        import { getDatabase, set, ref, push, remove, onChildAdded} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"
+        import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAZNz1imxIyM1ABtgJWAhxCMjxxFo4-bHY",
+            authDomain: "bulletin-65b15.firebaseapp.com",
+            projectId: "bulletin-65b15",
+            storageBucket: "bulletin-65b15.appspot.com",
+            messagingSenderId: "959216470906",
+            appId: "1:959216470906:web:87924987b3ab0e282864c3"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase()
+        const auth = getAuth()
+        const loginButton = document.getElementById("loginButton")
+        const signupButton = document.getElementById("signupButton")
+        const loginEmail = document.getElementById("emailInputLogin")
+        const loginPassword = document.getElementById("passwordInputLogin")
+        const signUpEmail = document.getElementById("emailInputSignUp")
+        const signUpPassword = document.getElementById("passwordInputSignUp")
+        const signUpUsername = document.getElementById("usernameInputSignUp")
+
+        function loginUser(email, password){
+            if(email != null && password != null){
+                signInWithEmailAndPassword(auth, email, password).then((credentials) => {
+                    console.log("Logged in User!")
+                    setTimeout(function(){}, 2000)
+                    //window.location.href = "index.html"
+                }).catch((err) =>{
+                    console.log(err)
+                    alert(err)
+                })
+            }   
+        }
+
+        function createUser(username, email, password){
+            console.log("Hi")
+            if(username != "" && email != "" && password != ""){
+                createUserWithEmailAndPassword(auth, email, password).then((credentials) =>{
+                console.log("Signed Up User!")
+                let uid = credentials.user.uid
+                console.log(credentials.user)
+                set(ref(db, "users"), {
+                    username: username,
+                    email: email,
+                    password: password
+                }) // STOPPED HERE
+                setTimeout(function(){}, 2000)
+                window.location.href = "index.html"
+                }).catch((err) => {
+                    console.log(err)
+                    alert(err)
+                })
+            }
+        }
+        
+        loginButton.addEventListener("click", function(){
+            loginUser(loginEmail.value, loginPassword.value)
+        })
+
+        signupButton.addEventListener("click", function(){
+            createUser(signUpUsername.value, signUpEmail.value, signUpPassword.value)
+        })
+
+    </script>
+</body>
+</html>

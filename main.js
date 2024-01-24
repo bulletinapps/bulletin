@@ -2,20 +2,21 @@
 // Import functions
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"
 import { getDatabase, set, ref, push, remove, onChildAdded} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
 
-  // Your web app's Firebase configuration
-  const firebaseConfig = {
+// Your web app's Firebase configuration
+const firebaseConfig = {
     apiKey: "AIzaSyAZNz1imxIyM1ABtgJWAhxCMjxxFo4-bHY",
     authDomain: "bulletin-65b15.firebaseapp.com",
     projectId: "bulletin-65b15",
     storageBucket: "bulletin-65b15.appspot.com",
     messagingSenderId: "959216470906",
     appId: "1:959216470906:web:87924987b3ab0e282864c3"
-  };
+};
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-    const db = getDatabase()
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getDatabase()
 //-------------------------------Database-------------------------------\\
 let board = document.getElementById("board")
 let inputBox = document.getElementById("inputBox")
