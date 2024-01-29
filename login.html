@@ -71,8 +71,7 @@
             if(email != null && password != null){
                 signInWithEmailAndPassword(auth, email, password).then((credentials) => {
                     console.log("Logged in User!")
-                    setTimeout(function(){}, 2000)
-                    //window.location.href = "index.html"
+                    setTimeout(function(){window.location.href = "index.html"}, 2000)
                 }).catch((err) =>{
                     console.log(err)
                     alert(err)
@@ -87,13 +86,13 @@
                 console.log("Signed Up User!")
                 let uid = credentials.user.uid
                 console.log(credentials.user)
-                set(ref(db, "users"), {
+                set(ref(db, "users/"+uid), {
                     username: username,
                     email: email,
-                    password: password
-                }) // STOPPED HERE
-                setTimeout(function(){}, 2000)
-                window.location.href = "index.html"
+                    password: password,
+                    board: username+"'s Board"
+                })
+                setTimeout(function(){window.location.href = "index.html"}, 2000)
                 }).catch((err) => {
                     console.log(err)
                     alert(err)
