@@ -23,6 +23,12 @@ let board = document.getElementById("board")
 let inputBox = document.getElementById("inputBox")
 let colorBox = document.getElementById("colorBox")
 let submitButton = document.getElementById("submitButton")
+let signoutButton = document.getElementById("logoutButton")
+//---------------------Logout---------------------\\
+signoutButton.addEventListener("click", function(){
+    auth.signOut()
+    window.location.href = "login.html"
+})
 //-------------------------------Uploads Messages-------------------------------\\
 function sendMessage(){
     if (inputBox.value != "" && auth.currentUser != null){
@@ -75,17 +81,22 @@ function addNote(id, text, color){
     //------------Return------------\\
     return note
 }
-setTimeout(function(){
-    onChildAdded(ref(db, "users/" + auth.currentUser.uid + "/board"), (data) =>{
-        //------------Data from firebase------------\\
-        let noteContents = data.val()
-        let key = data.key
-        let note = addNote(key, noteContents.text, noteContents.color)
-        //------------Remove Element------------\\
-        note.addEventListener("click", function(){
+window.addEventListener("load", function(){
+    setTimeout(function(){
+        onChildAdded(ref(db, "users/" + auth.currentUser.uid + "/board"), (data) =>{
             if(auth.currentUser != null){
-                remove(ref(db, "users/" + auth.currentUser.uid + "/board/"+ key))
+                //------------Data from firebase------------\\
+                let noteContents = data.val()
+                let key = data.key
+                let note = addNote(key, noteContents.text, noteContents.color)
+                //------------Remove Element------------\\
+                note.addEventListener("click", function(){
+                    if(auth.currentUser != null){
+                        remove(ref(db, "users/" + auth.currentUser.uid + "/board/"+ key))
+                    }
+                })
+                note.scrollIntoView({behavior: "smooth"})
             }
         })
-    })
-}, 2000)
+    }, 2000)
+})

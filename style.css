@@ -79,6 +79,19 @@
     padding: 0 5px;
 }
 
+#colorBox{
+    width: 10%;
+    height: 70%;
+    background-color: gainsboro;
+    opacity: 0.5;
+    border: gray solid 2px;
+    border-radius: 10px;
+    font-size: 24px;
+    margin-left: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
 #submitButton{
     width: 10%;
     height: 70%;
@@ -87,7 +100,7 @@
     border: gray solid 2px;
     border-radius: 10px;
     font-size: 24px;
-    margin: 0 10px;
+    margin-left: 10px;
     text-align: center;
     cursor: pointer;
 }
