@@ -1,3 +1,46 @@
+#loginTitle{
+    text-align: center;
+    font-size: 50px;
+}
+
+#accountSection{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+#loginSection{
+    width: 20%;
+    margin: 20px;
+    overflow: hidden;
+    text-align: center;
+}
+
+#orLabel{
+    font-size: 30px;
+    font-weight: 600;
+}
+
+#registerSection{ 
+    width: 20%;
+    margin: 20px;
+    overflow: hidden;
+    text-align: center;
+}
+
+#loginButton{
+    width: 60%; 
+    background-color:rgb(230, 227, 90);
+    border: rgb(230, 227, 90) solid;
+}
+
+#registerButton{
+    width: 60%; 
+    background-color:darkseagreen; 
+    border: darkseagreen solid;
+}
+
 .boardContainer{
     width: 50%;
     height: 70%;
@@ -103,4 +146,11 @@
     margin-left: 10px;
     text-align: center;
     cursor: pointer;
+}
+
+#logoutButton{
+    background-color: crimson;
+    border: solid crimson;
+    margin: 10px;
+    width: 150px;
 }

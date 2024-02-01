@@ -83,20 +83,24 @@ function addNote(id, text, color){
 }
 window.addEventListener("load", function(){
     setTimeout(function(){
-        onChildAdded(ref(db, "users/" + auth.currentUser.uid + "/board"), (data) =>{
-            if(auth.currentUser != null){
-                //------------Data from firebase------------\\
-                let noteContents = data.val()
-                let key = data.key
-                let note = addNote(key, noteContents.text, noteContents.color)
-                //------------Remove Element------------\\
-                note.addEventListener("click", function(){
-                    if(auth.currentUser != null){
-                        remove(ref(db, "users/" + auth.currentUser.uid + "/board/"+ key))
-                    }
-                })
-                note.scrollIntoView({behavior: "smooth"})
-            }
-        })
-    }, 2000)
+        if(auth.currentUser == null){
+            window.location.href = "login.html"
+        }else{
+            onChildAdded(ref(db, "users/" + auth.currentUser.uid + "/board"), (data) =>{
+                if(auth.currentUser != null){
+                    //------------Data from firebase------------\\
+                    let noteContents = data.val()
+                    let key = data.key
+                    let note = addNote(key, noteContents.text, noteContents.color)
+                    //------------Remove Element------------\\
+                    note.addEventListener("click", function(){
+                        if(auth.currentUser != null){
+                            remove(ref(db, "users/" + auth.currentUser.uid + "/board/"+ key))
+                        }
+                    })
+                    note.scrollIntoView({behavior: "smooth"})
+                }
+            })
+        }
+    }, 1000)
 })
