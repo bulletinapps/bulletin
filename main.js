@@ -22,6 +22,7 @@ const auth = getAuth()
 const board = document.getElementById("board")
 const inputBox = document.getElementById("inputBox")
 const colorBox = document.getElementById("colorBox")
+const colorChoices = document.getElementById("colorChoices")
 const submitButton = document.getElementById("submitButton")
 const signoutButton = document.getElementById("logoutButton")
 const submitButtonIcon = document.getElementById("submitButtonIcon")
@@ -29,6 +30,16 @@ const submitButtonIcon = document.getElementById("submitButtonIcon")
 signoutButton.addEventListener("click", function(){
     auth.signOut()
     window.location.href = "index.html"
+})
+//---------------------Colors---------------------\\
+let hide = true
+colorBox.addEventListener("click", function(){
+    if(hide){
+        colorChoices.style.visibility = "hidden"  
+    } else {
+        colorChoices.style.visibility = "visible"
+    }
+    hide = !hide
 })
 //-------------------------------Uploads Messages-------------------------------\\
 function sendMessage(){
@@ -42,7 +53,6 @@ function sendMessage(){
         inputBox.value = ""
     }
 }
-
 submitButton.addEventListener("click", function(){
     if(submitButtonIcon.classList.contains("bi-x-circle-fill")){
         inputBox.style.visibility = "hidden"
