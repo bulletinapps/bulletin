@@ -21,7 +21,7 @@ const auth = getAuth()
 //-------------------------------Database-------------------------------\\
 let board = document.getElementById("board")
 let inputBox = document.getElementById("inputBox")
-let colorBox = document.getElementById("colorBox")
+let colorSelector = document.getElementById("colorSelector")
 let submitButton = document.getElementById("submitButton")
 let signoutButton = document.getElementById("logoutButton")
 //---------------------Logout---------------------\\
@@ -36,7 +36,7 @@ function sendMessage(){
         const pushBoardRef = push(boardRef)
         set(pushBoardRef,{ 
             text: inputBox.value,
-            color: colorBox.value
+            color: "#FFEE99"
         })
         inputBox.value = ""
     }
@@ -47,6 +47,16 @@ document.onkeyup = function(e){
         sendMessage()
     }
 }
+let choices = colorSelector.childNodes
+for(let i = 0; i < choices.length; i++){
+    if(choices[i].nodeType == 1){
+        choices[i].style.backgroundColor = choices[i].value
+    }
+}
+colorSelector.style.backgroundColor = colorSelector.value
+colorSelector.addEventListener("change", function(){
+    colorSelector.style.backgroundColor = colorSelector.value
+})
 //---------------------Loads Messages---------------------\\
 function addNote(id, text, color){
     //------------Note Creation------------\\
@@ -58,7 +68,6 @@ function addNote(id, text, color){
     //------------Pin Icon------------\\
     let pinIcon = document.createElement("img")
     pinIcon.classList.add("pinIcon")
-    pinIcon.style.color = "yellow"
     pinIcon.src = "https://static.vecteezy.com/system/resources/thumbnails/012/419/385/small/red-notepaper-pin-ilustration-push-pin-isolated-on-the-white-background-free-png.png"
     note.appendChild(pinIcon)
     //------------Hover Icon------------\\
@@ -70,7 +79,7 @@ function addNote(id, text, color){
     if(color != null){
         note.style.backgroundColor = color
     } else{
-        note.style.backgroundColor = "rgb(238, 221, 70)"
+        note.style.backgroundColor = "#FFEE99"
     }
      //------------Append Note------------\\
     board.appendChild(note)
