@@ -19,15 +19,26 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase()
 const auth = getAuth()
 //-------------------------------Database-------------------------------\\
-let board = document.getElementById("board")
-let inputBox = document.getElementById("inputBox")
-let colorSelector = document.getElementById("colorSelector")
-let submitButton = document.getElementById("submitButton")
-let signoutButton = document.getElementById("logoutButton")
+const colorSelector = document.getElementById("colorSelector")
+const board = document.getElementById("board")
+const inputBox = document.getElementById("inputBox")
+const submitButton = document.getElementById("submitButton")
+const signoutButton = document.getElementById("logoutButton")
+const submitButtonIcon = document.getElementById("submitButtonIcon")
 //---------------------Logout---------------------\\
 signoutButton.addEventListener("click", function(){
     auth.signOut()
-    window.location.href = "login.html"
+    window.location.href = "index.html"
+})
+//---------------------Colors---------------------\\
+let hide = true
+colorBox.addEventListener("click", function(){
+    if(hide){
+        colorChoices.style.visibility = "hidden"  
+    } else {
+        colorChoices.style.visibility = "visible"
+    }
+    hide = !hide
 })
 //-------------------------------Uploads Messages-------------------------------\\
 function sendMessage(){
@@ -41,7 +52,31 @@ function sendMessage(){
         inputBox.value = ""
     }
 }
-submitButton.addEventListener("click", sendMessage)
+submitButton.addEventListener("click", function(){
+    if(submitButtonIcon.classList.contains("bi-x-circle-fill")){
+        inputBox.style.visibility = "hidden"
+        colorBox.style.visibility = "hidden"
+        submitButtonIcon.classList.replace("bi-x-circle-fill", "bi-file-earmark-plus-fill")
+    } else if(submitButtonIcon.classList.contains("bi-pin-angle-fill")){
+        sendMessage()
+        inputBox.style.visibility = "hidden"
+        colorBox.style.visibility = "hidden"
+        submitButtonIcon.classList.replace("bi-pin-angle-fill", "bi-file-earmark-plus-fill")
+    } else{
+        inputBox.style.visibility = "visible"
+        colorBox.style.visibility = "visible"
+        submitButtonIcon.classList.replace("bi-file-earmark-plus-fill", "bi-x-circle-fill")
+    }
+})
+
+inputBox.addEventListener("input", function(){
+    if(inputBox.value != ""){
+        submitButtonIcon.classList.replace("bi-x-circle-fill", "bi-pin-angle-fill")
+    } else{
+        submitButtonIcon.classList.replace("bi-pin-angle-fill", "bi-x-circle-fill")
+    }
+})
+
 document.onkeyup = function(e){
     if(e.key == "Enter"){
         sendMessage()

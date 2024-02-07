@@ -133,6 +133,35 @@
     margin-left: 10px;
     text-align: center;
     cursor: pointer;
+    position: relative;
+}
+
+.colorRow{
+    display: flex;
+    width: 100%;
+    margin: 5px 0;
+    justify-content: center;
+}
+
+
+#colorChoices{
+    --height: 390%;
+    height: var(--height);
+    width: 200%;
+    position: absolute;
+    top: calc(var(--height)*-1.1);
+    left: -50%;
+    cursor: default;
+    background-color: antiquewhite;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+}   
+
+.colorChoice{
+    width: 25px;
+    height: 25px;
+    margin: 5px;
 }
 
 #submitButton{
