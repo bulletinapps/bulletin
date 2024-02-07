@@ -30,15 +30,16 @@ signoutButton.addEventListener("click", function(){
     auth.signOut()
     window.location.href = "index.html"
 })
-//---------------------Colors---------------------\\
-let hide = true
-colorBox.addEventListener("click", function(){
-    if(hide){
-        colorChoices.style.visibility = "hidden"  
-    } else {
-        colorChoices.style.visibility = "visible"
+//-------------------------------Colors-------------------------------\\
+let choices = colorSelector.childNodes
+for(let i = 0; i < choices.length; i++){
+    if(choices[i].nodeType == 1){
+        choices[i].style.backgroundColor = choices[i].value
     }
-    hide = !hide
+}
+colorSelector.style.backgroundColor = colorSelector.value
+colorSelector.addEventListener("change", function(){
+    colorSelector.style.backgroundColor = colorSelector.value
 })
 //-------------------------------Uploads Messages-------------------------------\\
 function sendMessage(){
@@ -55,19 +56,21 @@ function sendMessage(){
 submitButton.addEventListener("click", function(){
     if(submitButtonIcon.classList.contains("bi-x-circle-fill")){
         inputBox.style.visibility = "hidden"
-        colorBox.style.visibility = "hidden"
+        colorSelector.style.visibility = "hidden"
         submitButtonIcon.classList.replace("bi-x-circle-fill", "bi-file-earmark-plus-fill")
     } else if(submitButtonIcon.classList.contains("bi-pin-angle-fill")){
         sendMessage()
         inputBox.style.visibility = "hidden"
-        colorBox.style.visibility = "hidden"
+        colorSelector.style.visibility = "hidden"
         submitButtonIcon.classList.replace("bi-pin-angle-fill", "bi-file-earmark-plus-fill")
     } else{
         inputBox.style.visibility = "visible"
-        colorBox.style.visibility = "visible"
+        colorSelector.style.visibility = "visible"
         submitButtonIcon.classList.replace("bi-file-earmark-plus-fill", "bi-x-circle-fill")
     }
 })
+inputBox.style.visibility = "hidden"
+colorSelector.style.visibility = "hidden"
 
 inputBox.addEventListener("input", function(){
     if(inputBox.value != ""){
@@ -82,16 +85,6 @@ document.onkeyup = function(e){
         sendMessage()
     }
 }
-let choices = colorSelector.childNodes
-for(let i = 0; i < choices.length; i++){
-    if(choices[i].nodeType == 1){
-        choices[i].style.backgroundColor = choices[i].value
-    }
-}
-colorSelector.style.backgroundColor = colorSelector.value
-colorSelector.addEventListener("change", function(){
-    colorSelector.style.backgroundColor = colorSelector.value
-})
 //---------------------Loads Messages---------------------\\
 function addNote(id, text, color){
     //------------Note Creation------------\\
