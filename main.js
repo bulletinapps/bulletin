@@ -18,7 +18,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase()
 const auth = getAuth()
-//-------------------------------Database-------------------------------\\
+//-------------------------------Variables-------------------------------\\
 const colorSelector = document.getElementById("colorSelector")
 const board = document.getElementById("board")
 const inputBox = document.getElementById("inputBox")
@@ -31,6 +31,10 @@ signoutButton.addEventListener("click", function(){
     window.location.href = "index.html"
 })
 //-------------------------------Colors-------------------------------\\
+const uniqueTextColors = {
+    ["rgb(48, 42, 42)"]: "rgb(245, 245, 245)", // Black -> White text
+    ["rgb(103, 43, 255)"]: "rgb(245, 245, 245)" // Purple -> White Text 
+}
 let choices = colorSelector.childNodes
 for(let i = 0; i < choices.length; i++){
     if(choices[i].nodeType == 1){
@@ -48,7 +52,7 @@ function sendMessage(){
         const pushBoardRef = push(boardRef)
         set(pushBoardRef,{ 
             text: inputBox.value,
-            color: "#FFEE99"
+            color: colorSelector.value
         })
         inputBox.value = ""
     }
@@ -60,9 +64,7 @@ submitButton.addEventListener("click", function(){
         submitButtonIcon.classList.replace("bi-x-circle-fill", "bi-file-earmark-plus-fill")
     } else if(submitButtonIcon.classList.contains("bi-pin-angle-fill")){
         sendMessage()
-        inputBox.style.visibility = "hidden"
-        colorSelector.style.visibility = "hidden"
-        submitButtonIcon.classList.replace("bi-pin-angle-fill", "bi-file-earmark-plus-fill")
+        submitButtonIcon.classList.replace("bi-pin-angle-fill", "bi-x-circle-fill")
     } else{
         inputBox.style.visibility = "visible"
         colorSelector.style.visibility = "visible"
@@ -83,6 +85,7 @@ inputBox.addEventListener("input", function(){
 document.onkeyup = function(e){
     if(e.key == "Enter"){
         sendMessage()
+        submitButtonIcon.classList.replace("bi-pin-angle-fill", "bi-x-circle-fill")
     }
 }
 //---------------------Loads Messages---------------------\\
@@ -107,7 +110,10 @@ function addNote(id, text, color){
     if(color != null){
         note.style.backgroundColor = color
     } else{
-        note.style.backgroundColor = "#FFEE99"
+        note.style.backgroundColor = "rgb(255, 238, 153)"
+    }
+    if(uniqueTextColors[note.style.backgroundColor] != undefined){
+        note.style.color = uniqueTextColors[note.style.backgroundColor]
     }
      //------------Append Note------------\\
     board.appendChild(note)
