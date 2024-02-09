@@ -12,10 +12,11 @@
     <h1>Bulletin</h1>
     <div class="boardContainer">
         <div class="board" id="board"></div>
-        <div>
-            <div class="inputArea">
-                <input type="text" placeholder="Note text..." id="inputBox">
-                <select id="colorSelector">
+        <div class="inputArea">
+            <input type="text" placeholder="Note text..." id="inputBox">  
+            <div id="colorInput">
+                <div id="colorBox"></div>
+                <select id="colorSelector" autofocus="true">
                     <option value="rgb(234, 31, 31)" class="colorChoice">Red</option>
                     <option value="rgb(234, 153, 153)" class="colorChoice">Pastel Red</option>
                     <option value="rgb(255, 147, 0)" class="colorChoice">Orange</option>
@@ -34,11 +35,10 @@
                     <option value="rgb(243, 246, 244)" class="colorChoice">White</option>
                     <option value="rgb(142, 108, 56)" class="colorChoice">Brown</option>
                 </select>
-                <button id="submitButton"><i class="bi-file-earmark-plus-fill" id="submitButtonIcon"></i></button>
-                </div>
-            </div>
-            <button class="btn btn-primary" id="logoutButton">Sign Out</button>
+            </div> 
+            <button id="submitButton"><i class="bi-file-earmark-plus-fill" id="submitButtonIcon"></i></button>
         </div>
+        <button class="btn btn-primary" id="logoutButton">Sign Out</button>
     </div>
 </body>
 </html>

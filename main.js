@@ -19,7 +19,9 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase()
 const auth = getAuth()
 //-------------------------------Variables-------------------------------\\
+const colorInput = document.getElementById("colorInput")
 const colorSelector = document.getElementById("colorSelector")
+const colorBox = document.getElementById("colorBox")
 const board = document.getElementById("board")
 const inputBox = document.getElementById("inputBox")
 const submitButton = document.getElementById("submitButton")
@@ -43,7 +45,7 @@ for(let i = 0; i < choices.length; i++){
 }
 colorSelector.style.backgroundColor = colorSelector.value
 colorSelector.addEventListener("change", function(){
-    colorSelector.style.backgroundColor = colorSelector.value
+    colorBox.style.backgroundColor = colorSelector.value
 })
 //-------------------------------Uploads Messages-------------------------------\\
 function sendMessage(){
@@ -60,19 +62,19 @@ function sendMessage(){
 submitButton.addEventListener("click", function(){
     if(submitButtonIcon.classList.contains("bi-x-circle-fill")){
         inputBox.style.visibility = "hidden"
-        colorSelector.style.visibility = "hidden"
+        colorInput.style.visibility = "hidden"
         submitButtonIcon.classList.replace("bi-x-circle-fill", "bi-file-earmark-plus-fill")
     } else if(submitButtonIcon.classList.contains("bi-pin-angle-fill")){
         sendMessage()
         submitButtonIcon.classList.replace("bi-pin-angle-fill", "bi-x-circle-fill")
     } else{
         inputBox.style.visibility = "visible"
-        colorSelector.style.visibility = "visible"
+        colorInput.style.visibility = "visible"
         submitButtonIcon.classList.replace("bi-file-earmark-plus-fill", "bi-x-circle-fill")
     }
 })
 inputBox.style.visibility = "hidden"
-colorSelector.style.visibility = "hidden"
+colorInput.style.visibility = "hidden"
 
 inputBox.addEventListener("input", function(){
     if(inputBox.value != ""){

@@ -122,17 +122,32 @@
     padding: 0 5px;
 }
 
-#colorSelector{
-    width: 12%;
+#colorInput{
+    width: 7.5%;
     height: 70%;
-    background-color: gainsboro;
-    opacity: 0.5;
-    border: gray solid 2px;
-    border-radius: 10px;
     margin-left: 10px;
+    justify-content: center;
+    position: relative;
+}
+
+#colorSelector{
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    border-radius: 10px;
     text-align: center;
     cursor: pointer;
     position: relative;
+    z-index: 2;
+}
+
+#colorBox{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    position: absolute;
+    border: black solid 3px;
+    background-color: blueviolet;
 }
 
 #submitButton{
