@@ -169,3 +169,41 @@
     margin: 10px;
     width: 150px;
 }
+
+#settingsSection{
+    width: 70%;
+    overflow: hidden;
+    margin: 20px;
+}
+
+.form-floating{
+    width: 30%;
+}
+
+#updateForm{
+    display: flex;
+    width: 100%;
+}
+
+#centerDiv{
+    display: flex;
+    justify-content: center;
+    margin-left: 20px;
+    align-items: center;
+    width: 50px;
+}
+
+#updateButton{
+    text-align: center;
+    height: 80%;
+    width: 100%;
+}
+
+#darkMode{
+    display: flex;
+    align-items: center;
+}
+
+#darkModeCheck{
+    margin-left: 20px;
+}
