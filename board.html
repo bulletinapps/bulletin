@@ -39,11 +39,9 @@
             </div> 
             <button id="submitButton"><i class="bi-file-earmark-plus-fill" id="submitButtonIcon"></i></button>
         </div>
-        <button class="btn btn-primary" id="logoutButton">Sign Out</button>
-        
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#settingsModal">
-            Settings
+        <button type="button" id="settingsButton" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#settingsModal">
+            <i class="bi-gear-fill"></i>
         </button>
   
         <!-- Modal -->
@@ -51,27 +49,46 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="settingsModalLabel">Account Settings</h1>
+                        <h1 class="modal-title fs-4" id="settingsModalLabel">Settings</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <h4 class="w-26">Change your Username</h4>
-                        <form id="updateForm" class="w-26" submit="return false">
+                        <form class="#updateEmailForm" class="w-26" submit="return false">
                             <div class="form-floating">
                                 <input type="text" class="form-control" id="usernameInput" placeholder="Grabbing Data...">
                                 <label for="usernameInput">New Username</label>
                             </div>
                         </form>
-                        <button class="btn btn-primary" id="updateButton"><i class="bi-check-circle-fill"></i></button>
+                        <button class="btn btn-primary updateButton" id="updateUsernameButton"><i class="bi-check-circle-fill"></i></button>
+                        <h4 class="w-26">Change your Email</h4>
+                        <form class="#updateEmailForm" class="w-26" submit="return false">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="emailInput" placeholder="Grabbing Data...">
+                                <label for="emailInput">New Email</label>
+                            </div>
+                        </form>
+                        <button class="btn btn-primary updateButton" id="updateEmailButton"><i class="bi-check-circle-fill"></i></button>
+                        
+
+
                         <h4 class="w-26">Other Settings</h4>
-                        <div id="darkMode">
-                            <p>Dark Mode: </p>
-                            <input type="checkbox" id="darkModeCheck">
+                        <div id="darkMode" class="settingDiv">
+                            <p id="darkModeText" class="settingText">Dark Mode: </p>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="darkModeCheck">
+                            </div>
+                        </div>
+                        <div id="autoScroll" class="settingDiv">
+                            <p id="autoScrollText" class="settingText">AutoScroll to most recent note: </p>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="autoScrollCheck">
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button class="btn btn-primary" id="logoutButton" data-bs-dismiss="modal">Sign Out</button>
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="closeButton">Done</button>
                     </div>
                 </div>
              </div>

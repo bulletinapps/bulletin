@@ -42,6 +42,7 @@
 }
 
 .boardContainer{
+    margin: 20px;
     width: 50%;
     height: 70%;
     position: relative;
@@ -163,11 +164,25 @@
     cursor: pointer;
 }
 
+#settingsButton{
+    margin: 10px;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    text-align: center;
+}
+
+#closeButton{
+    background-color: solid rgb(13, 110, 253);
+    border: solid rgb(13, 110, 253);
+    width: 100px;
+}
+
 #logoutButton{
     background-color: crimson;
     border: solid crimson;
     margin: 10px;
-    width: 150px;
+    width: 100px;
 }
 
 #settingsSection{
@@ -176,18 +191,22 @@
     margin: 20px;
 }
 
-#updateButton{
+.updateButton{
     text-align: center;
     justify-self: center;
     width: 50%;
     margin-left: 25%;
     margin-top: -5px;
+    margin-bottom: 10px;
 }
 
-#darkMode{
+.settingDiv{
     display: flex;
+    margin-left: 10px;
+    text-align: center;
+    height: 35px;
 }
 
-#darkModeCheck{
-    margin-left: 20px;
+.settingText{
+    margin-right: 10px;
 }
