@@ -1,4 +1,4 @@
-<html lang="en">
+<html lang="en" data-bs-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,14 +10,19 @@
     <script src="main.js" type="module"></script>
 </head>
 <body>
-    <h1>Bulletin</h1>
+    <div id="boardHeader">
+        <h1>Bulletin 📌 </h1>
+          <button type="button" id="settingsButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#settingsModal">
+            <i class="bi-gear-fill"></i>
+        </button>
+    </div>
     <div class="boardContainer">
         <div class="board" id="board"></div>
         <div class="inputArea">
             <input type="text" placeholder="Note text..." id="inputBox">  
             <div id="colorInput">
-                <div id="colorBox"></div>
-                <select id="colorSelector" autofocus="true">
+                <div id="colorSelector"></div>
+                <select id="colorBox" autofocus="true">
                     <option value="rgb(234, 31, 31)" class="colorChoice">Red</option>
                     <option value="rgb(234, 153, 153)" class="colorChoice">Pastel Red</option>
                     <option value="rgb(255, 147, 0)" class="colorChoice">Orange</option>
@@ -39,59 +44,59 @@
             </div> 
             <button id="submitButton"><i class="bi-file-earmark-plus-fill" id="submitButtonIcon"></i></button>
         </div>
-        <!-- Button trigger modal -->
-        <button type="button" id="settingsButton" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#settingsModal">
-            <i class="bi-gear-fill"></i>
-        </button>
-  
-        <!-- Modal -->
-        <div class="modal fade" id="settingsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-4" id="settingsModalLabel">Settings</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <h4 class="w-26">Change your Username</h4>
-                        <form class="#updateEmailForm" class="w-26" submit="return false">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" id="usernameInput" placeholder="Grabbing Data...">
-                                <label for="usernameInput">New Username</label>
-                            </div>
-                        </form>
-                        <button class="btn btn-primary updateButton" id="updateUsernameButton"><i class="bi-check-circle-fill"></i></button>
-                        <h4 class="w-26">Change your Email</h4>
-                        <form class="#updateEmailForm" class="w-26" submit="return false">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" id="emailInput" placeholder="Grabbing Data...">
-                                <label for="emailInput">New Email</label>
-                            </div>
-                        </form>
-                        <button class="btn btn-primary updateButton" id="updateEmailButton"><i class="bi-check-circle-fill"></i></button>
+    </div>
+
+    <div class="modal fade" id="settingsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-4" id="settingsModalLabel">Settings</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
                         
-
-
-                        <h4 class="w-26">Other Settings</h4>
-                        <div id="darkMode" class="settingDiv">
-                            <p id="darkModeText" class="settingText">Dark Mode: </p>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" id="darkModeCheck">
-                            </div>
+                    <h4 class="w-26">Change your Username</h4>
+                    <form class="#updateEmailForm" class="w-26" submit="return false">
+                        <div class="form-floating settingsInput">
+                            <input type="text" class="form-control" id="usernameInput" placeholder="">
+                            <label for="usernameInput">New Username</label>
+                            <button class="btn btn-success updateButton" id="updateUsernameButton"><i class="bi-check-circle-fill"></i></button>
                         </div>
-                        <div id="autoScroll" class="settingDiv">
-                            <p id="autoScrollText" class="settingText">AutoScroll to most recent note: </p>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" id="autoScrollCheck">
-                            </div>
+                    </form>
+                       
+                    <h4 class="w-26">Change your Email</h4>
+                    <form class="#updateEmailForm" class="w-26" submit="return false">
+                        <div class="form-floating settingsInput">
+                            <input type="text" class="form-control" id="emailInput" placeholder="">
+                            <label for="emailInput">New Email</label>
+                            <button class="btn btn-success updateButton" id="updateEmailButton"><i class="bi-check-circle-fill"></i></button>
+                        </div>
+                    </form>
+                        
+                    <h4 class="w-26">Change your Password</h4>
+                    <button class="btn btn-primary" id="updatePasswordButton">Send Password change Email</button>
+
+                    <h4 class="w-26">Other Settings</h4>
+                       
+                    <div id="darkMode" class="settingDiv">
+                        <p id="darkModeText" class="settingText">Dark Mode: </p>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="darkModeCheck">
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" id="logoutButton" data-bs-dismiss="modal">Sign Out</button>
-                        <button class="btn btn-primary" data-bs-dismiss="modal" id="closeButton">Done</button>
+
+                    <div id="autoScroll" class="settingDiv">
+                        <p id="autoScrollText" class="settingText">AutoScroll to most recent note: </p>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="autoScrollCheck">
+                        </div>
                     </div>
                 </div>
-             </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" id="logoutButton" data-bs-dismiss="modal">Sign Out</button>
+                    <button class="btn btn-primary" data-bs-dismiss="modal" id="closeButton">Done</button>
+                </div>
+            </div>
         </div>
     </div>
 </body>

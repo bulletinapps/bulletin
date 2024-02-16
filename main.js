@@ -18,12 +18,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase()
 const auth = getAuth()
-//-------------------------------Variables-------------------------------\\
-const colorInput = document.getElementById("colorInput")
-const colorSelector = document.getElementById("colorSelector")
-const colorBox = document.getElementById("colorBox")
+//-------------------------------Database-------------------------------\\
 const board = document.getElementById("board")
 const inputBox = document.getElementById("inputBox")
+const colorLabel = document.getElementById("colorSelector")
+const colorBox = document.getElementById("colorBox")
 const submitButton = document.getElementById("submitButton")
 const signoutButton = document.getElementById("logoutButton")
 const submitButtonIcon = document.getElementById("submitButtonIcon")
@@ -32,20 +31,21 @@ signoutButton.addEventListener("click", function(){
     auth.signOut()
     window.location.href = "index.html"
 })
-//-------------------------------Colors-------------------------------\\
-const uniqueTextColors = {
-    ["rgb(48, 42, 42)"]: "rgb(245, 245, 245)", // Black -> White text
-    ["rgb(103, 43, 255)"]: "rgb(245, 245, 245)" // Purple -> White Text 
+//---------------------Colors---------------------\\
+const customTextColors = {
+    "rgb(48, 42, 42)": "rgb(255, 255, 255)",
+    "rgb(103, 43, 255)": "rgb(255, 255, 255)"
 }
-let choices = colorSelector.childNodes
+
+colorBox.value = "rgb(255, 238, 153)"
+let choices = colorBox.childElementCount
 for(let i = 0; i < choices.length; i++){
-    if(choices[i].nodeType == 1){
-        choices[i].style.backgroundColor = choices[i].value
+    if(customTextColors[choices[i].value] != undefined){
+        choices[i].style.color = customTextColors[choices[i].value]
     }
 }
-colorSelector.style.backgroundColor = colorSelector.value
-colorSelector.addEventListener("change", function(){
-    colorBox.style.backgroundColor = colorSelector.value
+colorBox.addEventListener("change", function(){
+    colorLabel.style.backgroundColor = colorBox.value
 })
 //-------------------------------Uploads Messages-------------------------------\\
 function sendMessage(){
@@ -54,7 +54,7 @@ function sendMessage(){
         const pushBoardRef = push(boardRef)
         set(pushBoardRef,{ 
             text: inputBox.value,
-            color: colorSelector.value
+            color: colorBox.value
         })
         inputBox.value = ""
     }
@@ -62,19 +62,19 @@ function sendMessage(){
 submitButton.addEventListener("click", function(){
     if(submitButtonIcon.classList.contains("bi-x-circle-fill")){
         inputBox.style.visibility = "hidden"
-        colorInput.style.visibility = "hidden"
+        colorBox.style.visibility = "hidden"
         submitButtonIcon.classList.replace("bi-x-circle-fill", "bi-file-earmark-plus-fill")
     } else if(submitButtonIcon.classList.contains("bi-pin-angle-fill")){
         sendMessage()
-        submitButtonIcon.classList.replace("bi-pin-angle-fill", "bi-x-circle-fill")
+        inputBox.style.visibility = "hidden"
+        colorBox.style.visibility = "hidden"
+        submitButtonIcon.classList.replace("bi-pin-angle-fill", "bi-file-earmark-plus-fill")
     } else{
         inputBox.style.visibility = "visible"
-        colorInput.style.visibility = "visible"
+        colorBox.style.visibility = "visible"
         submitButtonIcon.classList.replace("bi-file-earmark-plus-fill", "bi-x-circle-fill")
     }
 })
-inputBox.style.visibility = "hidden"
-colorInput.style.visibility = "hidden"
 
 inputBox.addEventListener("input", function(){
     if(inputBox.value != ""){
@@ -87,7 +87,6 @@ inputBox.addEventListener("input", function(){
 document.onkeyup = function(e){
     if(e.key == "Enter"){
         sendMessage()
-        submitButtonIcon.classList.replace("bi-pin-angle-fill", "bi-x-circle-fill")
     }
 }
 //---------------------Loads Messages---------------------\\
@@ -101,6 +100,7 @@ function addNote(id, text, color){
     //------------Pin Icon------------\\
     let pinIcon = document.createElement("img")
     pinIcon.classList.add("pinIcon")
+    pinIcon.style.color = "yellow"
     pinIcon.src = "https://static.vecteezy.com/system/resources/thumbnails/012/419/385/small/red-notepaper-pin-ilustration-push-pin-isolated-on-the-white-background-free-png.png"
     note.appendChild(pinIcon)
     //------------Hover Icon------------\\
@@ -112,10 +112,13 @@ function addNote(id, text, color){
     if(color != null){
         note.style.backgroundColor = color
     } else{
-        note.style.backgroundColor = "rgb(255, 238, 153)"
+        note.style.backgroundColor = "rgb(238, 221, 70)"
     }
-    if(uniqueTextColors[note.style.backgroundColor] != undefined){
-        note.style.color = uniqueTextColors[note.style.backgroundColor]
+    if(customTextColors[color] != undefined){
+        console.log(customTextColors[color] )
+        note.style.color = customTextColors[color] 
+    } else{
+        note.style.color = "rgb(0,0,0)"
     }
      //------------Append Note------------\\
     board.appendChild(note)

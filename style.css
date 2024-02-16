@@ -31,22 +31,24 @@
 
 #loginButton{
     width: 60%; 
-    background-color:rgb(230, 227, 90);
-    border: rgb(230, 227, 90) solid;
 }
 
 #registerButton{
     width: 60%; 
-    background-color:darkseagreen; 
-    border: darkseagreen solid;
+}
+
+#boardHeader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .boardContainer{
-    margin: 20px;
-    width: 50%;
-    height: 70%;
+    top: 0%;
+    left: 5%;
+    width: 90%;
+    height: 90%;
     position: relative;
-    display: block;
 }
 
 .board{
@@ -131,7 +133,7 @@
     position: relative;
 }
 
-#colorSelector{
+#colorBox{
     width: 100%;
     height: 100%;
     opacity: 0;
@@ -142,13 +144,13 @@
     z-index: 2;
 }
 
-#colorBox{
+#colorSelector{
     width: 100%;
     height: 100%;
     border-radius: 10px;
     position: absolute;
     border: black solid 3px;
-    background-color: blueviolet;
+    background-color: rgb(255, 238, 153);
 }
 
 #submitButton{
@@ -179,8 +181,6 @@
 }
 
 #logoutButton{
-    background-color: crimson;
-    border: solid crimson;
     margin: 10px;
     width: 100px;
 }
@@ -191,13 +191,27 @@
     margin: 20px;
 }
 
+.settingsInput{
+    display: flex;
+    align-items: center;
+}
+
 .updateButton{
     text-align: center;
     justify-self: center;
-    width: 50%;
-    margin-left: 25%;
-    margin-top: -5px;
-    margin-bottom: 10px;
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    margin-left: 87.5%;
+    z-index: 2;
+}
+
+#updatePasswordButton{
+    text-align: center;
+    justify-self: center;
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 20px;
 }
 
 .settingDiv{
