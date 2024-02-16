@@ -20,29 +20,61 @@ const db = getDatabase()
 const auth = getAuth()
 //-------------------------------Database-------------------------------\\
 const board = document.getElementById("board")
+const signoutButton = document.getElementById("logoutButton")
 const inputBox = document.getElementById("inputBox")
 const colorLabel = document.getElementById("colorSelector")
 const colorBox = document.getElementById("colorBox")
-const submitButton = document.getElementById("submitButton")
-const signoutButton = document.getElementById("logoutButton")
-const submitButtonIcon = document.getElementById("submitButtonIcon")
+const pinButton = document.getElementById("pinButton")
 //---------------------Logout---------------------\\
 signoutButton.addEventListener("click", function(){
     auth.signOut()
     window.location.href = "index.html"
 })
 //---------------------Colors---------------------\\
+const colors = [
+    "rgb(234, 31, 31)",
+    "rgb(234, 153, 153)",
+    "rgb(255, 147, 0)",
+    "rgb(255, 213, 86)",
+    "rgb(255, 238, 0)",
+    "rgb(255, 238, 153)",
+    "rgb(58, 190, 0)",
+    "rgb(147, 196, 125)",
+    "rgb(0, 134, 255)",
+    "rgb(111, 168, 220)",
+    "rgb(247, 51, 148)",
+    "rgb(255, 162, 211)",
+    "rgb(103, 43, 255)",
+    "rgb(142, 124, 195)",
+    "rgb(48, 42, 42)",
+    "rgb(243, 246, 244)",
+    "rgb(142, 108, 56)"
+]
+
 const customTextColors = {
     "rgb(48, 42, 42)": "rgb(255, 255, 255)",
     "rgb(103, 43, 255)": "rgb(255, 255, 255)"
 }
 
-colorBox.value = "rgb(255, 238, 153)"
-let choices = colorBox.childElementCount
-for(let i = 0; i < choices.length; i++){
-    if(customTextColors[choices[i].value] != undefined){
-        choices[i].style.color = customTextColors[choices[i].value]
-    }
+let currentColor = "rgb(238, 221, 70)"
+let selectedElement = null
+for(let i = 0; i < colors.length; i++){
+    let colorChoice = document.createElement("div")
+    colorChoice.classList.add("colorChoice")
+    colorChoice.style.backgroundColor = colors[i]
+    colorChoice.id = colors[i]
+    colorBox.appendChild(colorChoice)
+
+    // Stopped here
+
+    colorChoice.addEventListener("click", function(){
+        if(selectedElement != null){
+            selectedElement.style.border = "solid black 3px"
+        }
+        currentColor = colors[i]
+        selectedElement = colorChoice
+        colorChoice.style.border = "solid blue 3px"
+    })
 }
 colorBox.addEventListener("change", function(){
     colorLabel.style.backgroundColor = colorBox.value
@@ -54,26 +86,14 @@ function sendMessage(){
         const pushBoardRef = push(boardRef)
         set(pushBoardRef,{ 
             text: inputBox.value,
-            color: colorBox.value
+            color: currentColor
         })
         inputBox.value = ""
     }
 }
-submitButton.addEventListener("click", function(){
-    if(submitButtonIcon.classList.contains("bi-x-circle-fill")){
-        inputBox.style.visibility = "hidden"
-        colorBox.style.visibility = "hidden"
-        submitButtonIcon.classList.replace("bi-x-circle-fill", "bi-file-earmark-plus-fill")
-    } else if(submitButtonIcon.classList.contains("bi-pin-angle-fill")){
-        sendMessage()
-        inputBox.style.visibility = "hidden"
-        colorBox.style.visibility = "hidden"
-        submitButtonIcon.classList.replace("bi-pin-angle-fill", "bi-file-earmark-plus-fill")
-    } else{
-        inputBox.style.visibility = "visible"
-        colorBox.style.visibility = "visible"
-        submitButtonIcon.classList.replace("bi-file-earmark-plus-fill", "bi-x-circle-fill")
-    }
+
+pinButton.addEventListener("click", function(){
+    sendMessage()
 })
 
 inputBox.addEventListener("input", function(){
@@ -115,7 +135,6 @@ function addNote(id, text, color){
         note.style.backgroundColor = "rgb(238, 221, 70)"
     }
     if(customTextColors[color] != undefined){
-        console.log(customTextColors[color] )
         note.style.color = customTextColors[color] 
     } else{
         note.style.color = "rgb(0,0,0)"

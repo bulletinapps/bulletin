@@ -19,33 +19,38 @@
     <div class="boardContainer">
         <div class="board" id="board"></div>
         <div class="inputArea">
-            <input type="text" placeholder="Note text..." id="inputBox">  
-            <div id="colorInput">
-                <div id="colorSelector"></div>
-                <select id="colorBox" autofocus="true">
-                    <option value="rgb(234, 31, 31)" class="colorChoice">Red</option>
-                    <option value="rgb(234, 153, 153)" class="colorChoice">Pastel Red</option>
-                    <option value="rgb(255, 147, 0)" class="colorChoice">Orange</option>
-                    <option value="rgb(255, 213, 86)" class="colorChoice">Pastel Orange</option>
-                    <option value="rgb(255, 238, 0)" class="colorChoice">Yellow</option>
-                    <option value="rgb(255, 238, 153)" class="colorChoice">Pastel Yellow</option>
-                    <option value="rgb(58, 190, 0)" class="colorChoice">Green</option>
-                    <option value="rgb(147, 196, 125)" class="colorChoice">Pastel Green</option>
-                    <option value="rgb(0, 134, 255)" class="colorChoice">Blue</option>
-                    <option value="rgb(111, 168, 220)" class="colorChoice">Pastel Blue</option>
-                    <option value="rgb(247, 51, 148)" class="colorChoice">Pink</option>
-                    <option value="rgb(255, 162, 211)" class="colorChoice">Pastel Pink</option>
-                    <option value="rgb(103, 43, 255)" class="colorChoice" style="color: rgb(245, 245, 245);">Purple</option>
-                    <option value="rgb(142, 124, 195)" class="colorChoice">Pastel Purple</option>
-                    <option value="rgb(48, 42, 42)" class="colorChoice" style="color: rgb(245, 245, 245);">Black</option>
-                    <option value="rgb(243, 246, 244)" class="colorChoice">White</option>
-                    <option value="rgb(142, 108, 56)" class="colorChoice">Brown</option>
-                </select>
-            </div> 
-            <button id="submitButton"><i class="bi-file-earmark-plus-fill" id="submitButtonIcon"></i></button>
+            <!--Text-->
+            <!--Colors-->
+            <button id="submitButton" data-bs-toggle="modal" data-bs-target="#addNoteModal"><i class="bi-file-earmark-plus-fill" id="submitButtonIcon"></i></button>
+        </div>
+    </div>
+    <div class="modal fade" id="addNoteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addNoteModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-4" id="settingsModalLabel">Add a Note</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h4 class="w-26">Note Text</h4>
+                    <textarea placeholder="Note text..." id="inputBox" style="resize: none;" maxlength="1000"></textarea>  
+                    <h4 class="w-26">Note Style</h4>
+                    <div id="colorInput">
+                        <div >Color: </div>
+                        <div id="colorBox">
+                          
+                        </div>
+                    </div> 
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-bs-dismiss="modal" id="pinButton"><i class="bi-pin-angle-fill"></i></button>
+                </div>
+            </div>
         </div>
     </div>
 
+
+    <!--Settings-->
     <div class="modal fade" id="settingsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
