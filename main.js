@@ -152,6 +152,8 @@ function addNote(id, text, color){
     } else{
         note.style.color = "rgb(0,0,0)"
     }
+    //------------Scale Text------------\\
+    // STOPPED HERE
      //------------Append Note------------\\
     board.appendChild(note)
     //------------Remove Element------------\\
