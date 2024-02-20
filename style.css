@@ -114,7 +114,7 @@
 }
 
 #inputBox{
-    width: 400px;
+    width: 100%;
     height: 125px;
     background-color: gainsboro;
     border: rgb(37, 35, 35) solid 2.5px;
@@ -122,17 +122,36 @@
     margin-bottom: 10px;
 }
 
+.colorSubheading{
+    margin-bottom: -1px;
+}
+
 #colorBox{
     display: grid;
     grid-template-columns: repeat(auto-fit, 50px);
     grid-template-rows: repeat(auto-fit, 50px);
+    justify-content: center;
 }
 
 .colorChoice{
+    margin-top: 10px;
     width: 40px;
     height: 40px;
-    border: black solid 3px;
+    border: rgb(43, 40, 40) solid 3px;
+    position: relative;
+    cursor: pointer;
 }
+
+.selectedIcon{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 10%;
+    font-size: 30px;
+    color: rgb(0, 0, 0);
+    text-align: center;
+}
+
 
 #submitButton{
     width: 10%;

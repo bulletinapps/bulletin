@@ -48,7 +48,8 @@ const colors = [
     "rgb(142, 124, 195)",
     "rgb(48, 42, 42)",
     "rgb(243, 246, 244)",
-    "rgb(142, 108, 56)"
+    "rgb(142, 108, 56)",
+    "rgb(255, 229, 180)"
 ]
 
 const customTextColors = {
@@ -56,7 +57,7 @@ const customTextColors = {
     "rgb(103, 43, 255)": "rgb(255, 255, 255)"
 }
 
-let currentColor = "rgb(238, 221, 70)"
+let currentColor = "rgb(255, 238, 153)"
 let selectedElement = null
 for(let i = 0; i < colors.length; i++){
     let colorChoice = document.createElement("div")
@@ -65,20 +66,32 @@ for(let i = 0; i < colors.length; i++){
     colorChoice.id = colors[i]
     colorBox.appendChild(colorChoice)
 
-    // Stopped here
+    let selectedIcon = document.createElement("i")
+    selectedIcon.classList.add("bi-check2")
+    selectedIcon.classList.add("selectedIcon")
+
+    if(colors[i] == currentColor){
+        selectedIcon.style.visibility = "visible"
+        selectedElement = colorChoice
+    } else{
+        selectedIcon.style.visibility = "hidden"
+    }
+    if(customTextColors[colors[i]] != undefined){
+        selectedIcon.style.color = customTextColors[colors[i]]
+    } else{
+        selectedIcon.style.color = "rgb(0,0,0)"
+    }
+    colorChoice.appendChild(selectedIcon)
 
     colorChoice.addEventListener("click", function(){
         if(selectedElement != null){
-            selectedElement.style.border = "solid black 3px"
+            selectedElement.childNodes[0].style.visibility = "hidden"
         }
         currentColor = colors[i]
         selectedElement = colorChoice
-        colorChoice.style.border = "solid blue 3px"
+        selectedElement.childNodes[0].style.visibility = "visible"
     })
-}
-colorBox.addEventListener("change", function(){
-    colorLabel.style.backgroundColor = colorBox.value
-})
+} 
 //-------------------------------Uploads Messages-------------------------------\\
 function sendMessage(){
     if (inputBox.value != "" && auth.currentUser != null){
