@@ -52,6 +52,7 @@
 }
 
 .board{
+    padding-top: 10px;
     display: grid;
     border: solid black 3px;
     border-radius: 10px;
@@ -65,8 +66,10 @@
 }
 
 .note{
+    --fontSize: 20px;
     width: 150px;
     height: 150px;
+    padding: 5px;
     display: flex;
     text-align: center;
     align-items: center;
@@ -74,8 +77,8 @@
     margin: 15px 15px;
     transition: .2s ease;
     position: relative;
-    font-size: 20px;
-    word-break: break-all;
+    font-size: var(--fontSize);
+    overflow-wrap: anywhere;
 }
 
 .note:hover{
@@ -96,10 +99,31 @@
 
 .pinIcon{
     position: absolute;
-    top: -8%;
+    top: -20px;
     left: 55px;
     height: 40px;
     width: 40px;
+}
+
+@media screen and (max-width: 560px) {
+    .board{
+        grid-template-columns: repeat(auto-fit, 125px);
+        grid-template-rows: repeat(auto-fit, 125px);
+    }
+
+    .note{
+        width: 100px;
+        height: 100px;
+        margin: 10px 10px;
+        font-size: calc(var(--fontSize)/1.5) !important;
+    }
+
+    .pinIcon{
+        left: 35px;
+        height: 30px;
+        width: 30px;
+        top: -15px;
+    }
 }
 
 .note:hover .hoverIcon{
@@ -177,8 +201,6 @@
 }
 
 #closeButton{
-    background-color: solid rgb(13, 110, 253);
-    border: solid rgb(13, 110, 253);
     width: 100px;
 }
 

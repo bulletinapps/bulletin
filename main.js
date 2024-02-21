@@ -153,7 +153,7 @@ function addNote(id, text, color){
         note.style.color = "rgb(0,0,0)"
     }
     //------------Scale Text------------\\
-    // STOPPED HERE
+    note.style.setProperty("--fontSize", Math.min(35, Math.max((7/text.length)*105, 9)) + "px")
      //------------Append Note------------\\
     board.appendChild(note)
     //------------Remove Element------------\\
