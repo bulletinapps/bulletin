@@ -22,13 +22,23 @@ const auth = getAuth()
 const board = document.getElementById("board")
 const signoutButton = document.getElementById("logoutButton")
 const inputBox = document.getElementById("inputBox")
-const colorLabel = document.getElementById("colorSelector")
 const colorBox = document.getElementById("colorBox")
 const pinButton = document.getElementById("pinButton")
+const darkModeSwitch = document.getElementById("darkModeCheck")
 //---------------------Logout---------------------\\
 signoutButton.addEventListener("click", function(){
     auth.signOut()
     window.location.href = "index.html"
+})
+//---------------------DarkMode---------------------\\
+darkModeSwitch.addEventListener("click", function(){
+    console.log(darkModeSwitch.value)
+    //Stopped here
+    if(toString(darkModeSwitch.value) == "on"){
+        document.querySelector("html").setAttribute("data-bs-theme", "light")
+    } else{
+        document.querySelector("html").setAttribute("data-bs-theme", "dark")
+    }
 })
 //---------------------Colors---------------------\\
 const colors = [
@@ -92,37 +102,7 @@ for(let i = 0; i < colors.length; i++){
         selectedElement.childNodes[0].style.visibility = "visible"
     })
 } 
-//-------------------------------Uploads Messages-------------------------------\\
-function sendMessage(){
-    if (inputBox.value != "" && auth.currentUser != null){
-        const boardRef = ref(db, "users/" + auth.currentUser.uid + "/board")
-        const pushBoardRef = push(boardRef)
-        set(pushBoardRef,{ 
-            text: inputBox.value,
-            color: currentColor
-        })
-        inputBox.value = ""
-    }
-}
-
-pinButton.addEventListener("click", function(){
-    sendMessage()
-})
-
-inputBox.addEventListener("input", function(){
-    if(inputBox.value != ""){
-        submitButtonIcon.classList.replace("bi-x-circle-fill", "bi-pin-angle-fill")
-    } else{
-        submitButtonIcon.classList.replace("bi-pin-angle-fill", "bi-x-circle-fill")
-    }
-})
-
-document.onkeyup = function(e){
-    if(e.key == "Enter"){
-        sendMessage()
-    }
-}
-//---------------------Loads Messages---------------------\\
+//-------------------------------Adds Notes-------------------------------\\
 function addNote(id, text, color){
     //------------Note Creation------------\\
     let note = document.createElement("div")
@@ -163,6 +143,37 @@ function addNote(id, text, color){
     //------------Return------------\\
     return note
 }
+//-------------------------------Uploads Messages-------------------------------\\
+function sendMessage(){
+    if (inputBox.value != "" && auth.currentUser != null){
+        const boardRef = ref(db, "users/" + auth.currentUser.uid + "/board")
+        const pushBoardRef = push(boardRef)
+        set(pushBoardRef,{ 
+            text: inputBox.value,
+            color: currentColor
+        })
+        inputBox.value = ""
+    }
+}
+
+pinButton.addEventListener("click", function(){
+    sendMessage()
+})
+
+inputBox.addEventListener("input", function(){
+    if(inputBox.value != ""){
+        submitButtonIcon.classList.replace("bi-x-circle-fill", "bi-pin-angle-fill")
+    } else{
+        submitButtonIcon.classList.replace("bi-pin-angle-fill", "bi-x-circle-fill")
+    }
+})
+
+document.onkeyup = function(e){
+    if(e.key == "Enter"){
+        sendMessage()
+    }
+}
+//---------------------Loads Messages---------------------\\
 window.addEventListener("load", function(){
     setTimeout(function(){
         if(auth.currentUser == null){
