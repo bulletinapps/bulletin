@@ -1,8 +1,8 @@
 //-------------------------------Database-------------------------------\\
 // Import functions
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"
-import { getDatabase, set, ref, push, remove, onChildAdded} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getDatabase, set, ref, push, remove, onChildAdded, update} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"
+import { getAuth, onAuthStateChanged, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -18,13 +18,42 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase()
 const auth = getAuth()
-//-------------------------------Database-------------------------------\\
+//-------------------------------Elements-------------------------------\\
 const board = document.getElementById("board")
 const signoutButton = document.getElementById("logoutButton")
 const inputBox = document.getElementById("inputBox")
 const colorBox = document.getElementById("colorBox")
 const pinButton = document.getElementById("pinButton")
 const darkModeSwitch = document.getElementById("darkModeCheck")
+const autoScrollSwtich = document.getElementById("autoScrollCheck")
+const updateUsernameButton = document.getElementById("updateUsernameButton")
+const updateEmailButton = document.getElementById("updateEmailButton")
+const updatePasswordButton = document.getElementById("updatePasswordButton")
+const usernameInput = document.getElementById("usernameInput")
+const emailInput = document.getElementById("emailInput")
+//-------------------------------Update Information-------------------------------\\
+updateUsernameButton.addEventListener("click", function(){
+    if(usernameInput.value != "" && auth.currentUser != null){
+        update(ref(db, "users/" + auth.currentUser.uid),{
+            username: usernameInput.value
+        })
+    }
+})
+
+updateEmailButton.addEventListener("click", function(){
+    if(emailInput.value != "" && auth.currentUser != null){
+        update(ref(db, "users/" + auth.currentUser.uid),{
+            email: emailInput.value
+        })
+        // Stopped here
+    }
+})
+
+updatePasswordButton.addEventListener("click", function(){
+    if(auth.currentUser != null){
+        sendPasswordResetEmail(auth, auth.currentUser.email)
+    }
+})
 //---------------------Logout---------------------\\
 signoutButton.addEventListener("click", function(){
     auth.signOut()
@@ -32,12 +61,10 @@ signoutButton.addEventListener("click", function(){
 })
 //---------------------DarkMode---------------------\\
 darkModeSwitch.addEventListener("click", function(){
-    console.log(darkModeSwitch.value)
-    //Stopped here
-    if(toString(darkModeSwitch.value) == "on"){
-        document.querySelector("html").setAttribute("data-bs-theme", "light")
-    } else{
+    if(darkModeSwitch.checked == true){
         document.querySelector("html").setAttribute("data-bs-theme", "dark")
+    } else{
+        document.querySelector("html").setAttribute("data-bs-theme", "light")
     }
 })
 //---------------------Colors---------------------\\
@@ -174,10 +201,11 @@ document.onkeyup = function(e){
     }
 }
 //---------------------Loads Messages---------------------\\
+let lastNote = null
 window.addEventListener("load", function(){
     setTimeout(function(){
         if(auth.currentUser == null){
-            window.location.href = "login.html"
+            window.location.href = "index.html"
         }else{
             onChildAdded(ref(db, "users/" + auth.currentUser.uid + "/board"), (data) =>{
                 if(auth.currentUser != null){
@@ -185,15 +213,24 @@ window.addEventListener("load", function(){
                     let noteContents = data.val()
                     let key = data.key
                     let note = addNote(key, noteContents.text, noteContents.color)
+                    lastNote = note
                     //------------Remove Element------------\\
                     note.addEventListener("click", function(){
                         if(auth.currentUser != null){
                             remove(ref(db, "users/" + auth.currentUser.uid + "/board/"+ key))
                         }
                     })
-                    note.scrollIntoView({behavior: "smooth"})
+                    if(autoScrollSwtich.checked == true){
+                        note.scrollIntoView({behavior: "smooth"})
+                    }
                 }
             })
         }
     }, 1000)
+})
+
+autoScrollSwtich.addEventListener("click", function(){
+    if(autoScrollSwtich.checked == true && lastNote != null){
+        lastNote.scrollIntoView({behavior: "smooth"})
+    }
 })

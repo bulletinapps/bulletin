@@ -230,6 +230,12 @@
     z-index: 2;
 }
 
+@media screen and (max-width: 560px) {
+    .updateButton{
+       margin-left: 82.5%;
+    } 
+}
+
 #updatePasswordButton{
     text-align: center;
     justify-self: center;
