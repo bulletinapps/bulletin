@@ -18,12 +18,9 @@
     </div>
     <div class="boardContainer">
         <div class="board" id="board"></div>
-        <div class="inputArea">
-            <!--Text-->
-            <!--Colors-->
-            <button id="submitButton" data-bs-toggle="modal" data-bs-target="#addNoteModal"><i class="bi-file-earmark-plus-fill" id="submitButtonIcon"></i></button>
-        </div>
+        <button id="submitButton" data-bs-toggle="modal" data-bs-target="#addNoteModal"><i class="bi-file-earmark-plus-fill" id="submitButtonIcon"></i></button>
     </div>
+    
     <div class="modal fade" id="addNoteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addNoteModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -58,23 +55,23 @@
                 <div class="modal-body">
                         
                     <h4 class="w-26">Change your Username</h4>
-                    <form class="#updateEmailForm" class="w-26" submit="return false">
+                    <form class="updateInfoForm" class="w-26" submit="return false">
                         <div class="form-floating settingsInput">
                             <input type="text" class="form-control" id="usernameInput" placeholder="">
                             <label for="usernameInput">New Username</label>
-                            <button class="btn btn-success updateButton" id="updateUsernameButton"><i class="bi-check-circle-fill"></i></button>
                         </div>
                     </form>
+                    <button class="btn btn-success updateButton" id="updateUsernameButton"><i class="bi-check-circle-fill"></i></button>
                        
                     <h4 class="w-26">Change your Email</h4>
-                    <form class="#updateEmailForm" class="w-26" submit="return false">
+                    <form class="updateInfoForm" class="w-26" submit="return false;">
                         <div class="form-floating settingsInput">
                             <input type="text" class="form-control" id="emailInput" placeholder="">
                             <label for="emailInput">New Email</label>
-                            <button class="btn btn-success updateButton" id="updateEmailButton"><i class="bi-check-circle-fill"></i></button>
                         </div>
                     </form>
-                        
+                    <button class="btn btn-success updateButton" id="updateEmailButton"><i class="bi-check-circle-fill"></i></button>
+
                     <h4 class="w-26">Change your Password</h4>
                     <button class="btn btn-primary" id="updatePasswordButton">Send Password change Email</button>
 

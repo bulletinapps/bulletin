@@ -2,7 +2,7 @@
 // Import functions
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"
 import { getDatabase, set, ref, push, remove, onChildAdded, update} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"
-import { getAuth, onAuthStateChanged, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getAuth, onAuthStateChanged, updateEmail, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -18,6 +18,14 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase()
 const auth = getAuth()
+//-------------------------------Security-------------------------------\\
+onAuthStateChanged(auth, function(user){
+    if(user){
+        
+    } else{
+        window.location.href = "index.html"
+    }
+})
 //-------------------------------Elements-------------------------------\\
 const board = document.getElementById("board")
 const signoutButton = document.getElementById("logoutButton")
@@ -42,10 +50,13 @@ updateUsernameButton.addEventListener("click", function(){
 
 updateEmailButton.addEventListener("click", function(){
     if(emailInput.value != "" && auth.currentUser != null){
-        update(ref(db, "users/" + auth.currentUser.uid),{
-            email: emailInput.value
+        updateEmail(auth.currentUser, emailInput.value).then(function(){
+            update(ref(db, "users/" + auth.currentUser.uid),{
+                email: emailInput.value
+            })
+        }).catch(function(err){
+            alert("An error has occured updating the user's email. Try again. Error: " + err)
         })
-        // Stopped here
     }
 })
 
