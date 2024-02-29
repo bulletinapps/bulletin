@@ -2,7 +2,7 @@
 // Import functions
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"
 import { getDatabase, set, ref, push, remove, onChildAdded, update} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"
-import { getAuth, onAuthStateChanged, updateEmail, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getAuth, onAuthStateChanged, updateEmail, sendEmailVerification, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -52,7 +52,12 @@ updateEmailButton.addEventListener("click", function(){
     if(emailInput.value != "" && auth.currentUser != null){
         updateEmail(auth.currentUser, emailInput.value).then(function(){
             update(ref(db, "users/" + auth.currentUser.uid),{
-                email: emailInput.value
+                email: emailInput.value 
+            }).then(function(){
+                alert("Successfully updated user's email!")
+                // Stopped here. Flip flop the updateEmail and update next time you work on this.
+            }).catch(function(err){
+                alert("Error saving the user's email to the database.")
             })
         }).catch(function(err){
             alert("An error has occured updating the user's email. Try again. Error: " + err)
@@ -95,7 +100,7 @@ const colors = [
     "rgb(103, 43, 255)",
     "rgb(142, 124, 195)",
     "rgb(48, 42, 42)",
-    "rgb(243, 246, 244)",
+    "rgb(243, 246, 244)",   
     "rgb(142, 108, 56)",
     "rgb(255, 229, 180)"
 ]
