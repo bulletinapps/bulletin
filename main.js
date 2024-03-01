@@ -27,13 +27,18 @@ onAuthStateChanged(auth, function(user){
     }
 })
 //-------------------------------Elements-------------------------------\\
+let selectedNote = [null, null]
 const board = document.getElementById("board")
 const signoutButton = document.getElementById("logoutButton")
-const inputBox = document.getElementById("inputBox")
+
 const colorBox = document.getElementById("colorBox")
-const pinButton = document.getElementById("pinButton")
+
+const addNoteInputBox = document.getElementById("addNoteInputBox")
+const addNoteButton = document.getElementById("addNoteButton")
+
 const darkModeSwitch = document.getElementById("darkModeCheck")
 const autoScrollSwtich = document.getElementById("autoScrollCheck")
+
 const updateUsernameButton = document.getElementById("updateUsernameButton")
 const updateEmailButton = document.getElementById("updateEmailButton")
 const updatePasswordButton = document.getElementById("updatePasswordButton")
@@ -50,17 +55,16 @@ updateUsernameButton.addEventListener("click", function(){
 
 updateEmailButton.addEventListener("click", function(){
     if(emailInput.value != "" && auth.currentUser != null){
-        updateEmail(auth.currentUser, emailInput.value).then(function(){
-            update(ref(db, "users/" + auth.currentUser.uid),{
-                email: emailInput.value 
-            }).then(function(){
+        update(ref(db, "users/" + auth.currentUser.uid),{
+            email: emailInput.value 
+        }).then(function(){
+            updateEmail(auth.currentUser, emailInput.value).then(function(){
                 alert("Successfully updated user's email!")
-                // Stopped here. Flip flop the updateEmail and update next time you work on this.
             }).catch(function(err){
-                alert("Error saving the user's email to the database.")
+                alert("An error has occured updating the user's email in the authentication system. Try again. Error: " + err)
             })
         }).catch(function(err){
-            alert("An error has occured updating the user's email. Try again. Error: " + err)
+            alert("Error saving the user's email to the database. Try again. Error: " + err)
         })
     }
 })
@@ -150,8 +154,8 @@ function addNote(id, text, color){
     //------------Note Creation------------\\
     let note = document.createElement("div")
     note.id = id
-    note.classList.add("note")
     note.innerHTML = text
+    note.classList.add("note")
     note.style.rotate = parseInt((Math.random()*3 + 1)*Math.pow(-1, parseInt(Math.random()*2 + 1))) + "deg"
     //------------Pin Icon------------\\
     let pinIcon = document.createElement("img")
@@ -161,7 +165,7 @@ function addNote(id, text, color){
     note.appendChild(pinIcon)
     //------------Hover Icon------------\\
     let hoverIcon = document.createElement("i")
-    hoverIcon.classList.add("bi-check-circle")
+    hoverIcon.classList.add("bi-pencil-square")
     hoverIcon.classList.add("hoverIcon")
     note.appendChild(hoverIcon)
     //------------Color------------\\
@@ -175,36 +179,70 @@ function addNote(id, text, color){
     } else{
         note.style.color = "rgb(0,0,0)"
     }
-    //------------Scale Text------------\\
+    //------------Text Scaling------------\\
     note.style.setProperty("--fontSize", Math.min(35, Math.max((7/text.length)*105, 9)) + "px")
      //------------Append Note------------\\
     board.appendChild(note)
-    //------------Remove Element------------\\
-    note.addEventListener("click", function(){
-        document.getElementById(id).remove()
-    })
     //------------Return------------\\
     return note
 }
+
+function editNote(id, noteElement, newText, newColor){
+    const boardRef = ref(db, "users/" + auth.currentUser.uid + "/board/" + id)
+    set(boardRef, {
+        text: newText,
+        color: newColor
+    }).then(function(){
+        //------------Text------------\\
+        noteElement.innerHTML = newText
+        noteElement.style.setProperty("--fontSize", Math.min(35, Math.max((7/text.length)*105, 9)) + "px")
+        //------------Color------------\\
+        if(color != null){
+            noteElement.style.backgroundColor = color
+        } else{
+            noteElement.style.backgroundColor = "rgb(238, 221, 70)"
+        }
+        if(customTextColors[color] != undefined){
+            noteElement.style.color = customTextColors[color] 
+        } else{
+            noteElement.style.color = "rgb(0,0,0)"
+        }
+        //------------Pin Icon------------\\
+        let pinIcon = document.createElement("img")
+        pinIcon.classList.add("pinIcon")
+        pinIcon.style.color = "yellow"
+        pinIcon.src = "https://static.vecteezy.com/system/resources/thumbnails/012/419/385/small/red-notepaper-pin-ilustration-push-pin-isolated-on-the-white-background-free-png.png"
+        noteElement.appendChild(pinIcon)
+        //------------Hover Icon------------\\
+        let hoverIcon = document.createElement("i")
+        hoverIcon.classList.add("bi-pencil-square")
+        hoverIcon.classList.add("hoverIcon")
+        noteElement.appendChild(hoverIcon)
+    }).catch(function(err){
+        alert("An error has occurred trying to save your note. Try again. Error: " + err)
+    })
+}
 //-------------------------------Uploads Messages-------------------------------\\
-function sendMessage(){
-    if (inputBox.value != "" && auth.currentUser != null){
+function sendNote(){
+    if (addNoteInputBox.value != "" && auth.currentUser != null){
         const boardRef = ref(db, "users/" + auth.currentUser.uid + "/board")
         const pushBoardRef = push(boardRef)
         set(pushBoardRef,{ 
-            text: inputBox.value,
+            text: addNoteInputBox.value,
             color: currentColor
+        }).then(function(){}).catch(function(err){
+            alert("An error has occurred trying to save your note. Try again. Error: " + err)
         })
-        inputBox.value = ""
+        addNoteInputBox.value = ""
     }
 }
 
-pinButton.addEventListener("click", function(){
-    sendMessage()
+addNoteButton.addEventListener("click", function(){
+    sendNote()
 })
 
-inputBox.addEventListener("input", function(){
-    if(inputBox.value != ""){
+addNoteInputBox.addEventListener("input", function(){
+    if(addNoteInputBox.value != ""){
         submitButtonIcon.classList.replace("bi-x-circle-fill", "bi-pin-angle-fill")
     } else{
         submitButtonIcon.classList.replace("bi-pin-angle-fill", "bi-x-circle-fill")
@@ -232,9 +270,7 @@ window.addEventListener("load", function(){
                     lastNote = note
                     //------------Remove Element------------\\
                     note.addEventListener("click", function(){
-                        if(auth.currentUser != null){
-                            remove(ref(db, "users/" + auth.currentUser.uid + "/board/"+ key))
-                        }
+                        selectedNote = [key, note]
                     })
                     if(autoScrollSwtich.checked == true){
                         note.scrollIntoView({behavior: "smooth"})

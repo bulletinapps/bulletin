@@ -130,7 +130,7 @@
     opacity: 1
 } 
 
-#inputBox{
+.inputBox{
     width: 100%;
     height: 125px;
     background-color: gainsboro;
