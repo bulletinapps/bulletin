@@ -36,6 +36,8 @@ const colorBox = document.getElementById("colorBox")
 const addNoteInputBox = document.getElementById("addNoteInputBox")
 const addNoteButton = document.getElementById("addNoteButton")
 
+
+
 const darkModeSwitch = document.getElementById("darkModeCheck")
 const autoScrollSwtich = document.getElementById("autoScrollCheck")
 
@@ -156,6 +158,8 @@ function addNote(id, text, color){
     note.id = id
     note.innerHTML = text
     note.classList.add("note")
+    note.setAttribute("data-bs-toggle", "modal")
+    note.setAttribute("data-bs-target", "#editNoteModal")
     note.style.rotate = parseInt((Math.random()*3 + 1)*Math.pow(-1, parseInt(Math.random()*2 + 1))) + "deg"
     //------------Pin Icon------------\\
     let pinIcon = document.createElement("img")
