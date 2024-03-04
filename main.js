@@ -36,6 +36,9 @@ const colorBox = document.getElementById("colorBox")
 const addNoteInputBox = document.getElementById("addNoteInputBox")
 const addNoteButton = document.getElementById("addNoteButton")
 
+const editNoteInputBox = document.getElementById("editNoteInputBox")
+const editNoteButton = document.getElementById("editNoteButton")
+
 const darkModeSwitch = document.getElementById("darkModeCheck")
 const autoScrollSwtich = document.getElementById("autoScrollCheck")
 
@@ -197,13 +200,13 @@ function editNote(id, noteElement, newText, newColor){
         noteElement.innerHTML = newText
         noteElement.style.setProperty("--fontSize", Math.min(35, Math.max((7/text.length)*105, 9)) + "px")
         //------------Color------------\\
-        if(color != null){
-            noteElement.style.backgroundColor = color
+        if(newColor != null){
+            noteElement.style.backgroundColor = newColor
         } else{
             noteElement.style.backgroundColor = "rgb(238, 221, 70)"
         }
-        if(customTextColors[color] != undefined){
-            noteElement.style.color = customTextColors[color] 
+        if(customTextColors[newColor] != undefined){
+            noteElement.style.color = customTextColors[newColor] 
         } else{
             noteElement.style.color = "rgb(0,0,0)"
         }
@@ -223,7 +226,7 @@ function editNote(id, noteElement, newText, newColor){
     })
 }
 //-------------------------------Uploads Messages-------------------------------\\
-function sendNote(){
+addNoteButton.addEventListener("click", function(){
     if (addNoteInputBox.value != "" && auth.currentUser != null){
         const boardRef = ref(db, "users/" + auth.currentUser.uid + "/board")
         const pushBoardRef = push(boardRef)
@@ -235,25 +238,7 @@ function sendNote(){
         })
         addNoteInputBox.value = ""
     }
-}
-
-addNoteButton.addEventListener("click", function(){
-    sendNote()
 })
-
-addNoteInputBox.addEventListener("input", function(){
-    if(addNoteInputBox.value != ""){
-        submitButtonIcon.classList.replace("bi-x-circle-fill", "bi-pin-angle-fill")
-    } else{
-        submitButtonIcon.classList.replace("bi-pin-angle-fill", "bi-x-circle-fill")
-    }
-})
-
-document.onkeyup = function(e){
-    if(e.key == "Enter"){
-        sendMessage()
-    }
-}
 //---------------------Loads Messages---------------------\\
 let lastNote = null
 window.addEventListener("load", function(){

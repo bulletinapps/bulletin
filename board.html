@@ -16,6 +16,7 @@
             <i class="bi-gear-fill"></i>
         </button>
     </div>
+    
     <div class="boardContainer">
         <div class="board" id="board"></div>
         <button id="submitButton" data-bs-toggle="modal" data-bs-target="#addNoteModal"><i class="bi-file-earmark-plus-fill" id="submitButtonIcon"></i></button>
@@ -47,7 +48,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-4" id="addNoteModalLabel">Add a Note</h1>
+                    <h1 class="modal-title fs-4" id="editNoteModalLabel">Add a Note</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -64,7 +65,6 @@
             </div>
         </div>
     </div>
-
 
     <!--Settings-->
     <div class="modal fade" id="settingsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
