@@ -31,10 +31,10 @@ let selectedNote = [null, null]
 const board = document.getElementById("board")
 const signoutButton = document.getElementById("logoutButton")
 
-const colorBox = document.getElementById("colorBox")
 
-const addNoteInputBox = document.getElementById("addNoteInputBox")
-const addNoteButton = document.getElementById("addNoteButton")
+const noteInputBox = document.getElementById("noteInputBox")
+const colorBox = document.getElementById("colorBox")
+const noteButton = document.getElementById("noteButton")
 
 const editNoteInputBox = document.getElementById("editNoteInputBox")
 const editNoteButton = document.getElementById("editNoteButton")

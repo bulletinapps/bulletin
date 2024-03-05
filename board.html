@@ -22,45 +22,24 @@
         <button id="submitButton" data-bs-toggle="modal" data-bs-target="#addNoteModal"><i class="bi-file-earmark-plus-fill" id="submitButtonIcon"></i></button>
     </div>
     
-    <div class="modal fade" id="addNoteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addNoteModal" aria-hidden="true">
+    <div class="modal fade" id="noteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="noteModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-4" id="addNoteModalLabel">Add a Note</h1>
+                    <h1 class="modal-title fs-4" id="noteModalLabel">Note Configuration</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <h4 class="w-26 textSubheading">Note Text</h4>
-                    <textarea placeholder="Note text..." class="inputBox" id="addNoteInputBox" style="resize: none;" maxlength="250"></textarea>  
+                    <textarea placeholder="Note text..." class="inputBox" id="noteInputBox" style="resize: none;" maxlength="250"></textarea>  
                     <h4 class="w-26 colorSubheading">Note Color</h4>
                     <div id="colorInput">
                         <div id="colorBox"></div>
                     </div> 
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" data-bs-dismiss="modal" id="addNoteButton"><i class="bi-pin-angle-fill"></i></button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="editNoteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editNoteModal" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-4" id="editNoteModalLabel">Add a Note</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <h4 class="w-26 textSubheading">Note Text</h4>
-                    <textarea placeholder="Note text..." class="inputBox" id="editNoteInputBox" style="resize: none;" maxlength="250"></textarea>  
-                    <h4 class="w-26 colorSubheading">Note Color</h4>
-                    <div id="colorInput">
-                        <div id="colorBox"></div>
-                    </div> 
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary" data-bs-dismiss="modal" id="editNoteButton"><i class="bi-pin-angle-fill"></i></button>
+                    <button class="btn btn-danger" data-bs-dismiss="modal" id="deleteNoteButton">Pin</i></button>
+                    <button class="btn btn-primary" data-bs-dismiss="modal" id="noteButton">Pin</i></button>
                 </div>
             </div>
         </div>
