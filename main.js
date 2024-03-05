@@ -29,18 +29,18 @@ onAuthStateChanged(auth, function(user){
 //-------------------------------Global Variables-------------------------------\\
 let lastNote = null
 let selectedNote = [null, null] // [0] = note id, [1] = note element
+let editMode = false
 let currentColor = "rgb(255, 238, 153)"
 //-------------------------------Elements-------------------------------\\
 const board = document.getElementById("board")
 const signoutButton = document.getElementById("logoutButton")
 
+const addNoteButton = document.getElementById("addNoteButton")
 
+const noteModalLabel = document.getElementById("noteModalLabel")
 const noteInputBox = document.getElementById("noteInputBox")
 const colorBox = document.getElementById("colorBox")
 const noteButton = document.getElementById("noteButton")
-
-const editNoteInputBox = document.getElementById("editNoteInputBox")
-const editNoteButton = document.getElementById("editNoteButton")
 const deleteNoteButton = document.getElementById("deleteNoteButton")
 
 const darkModeSwitch = document.getElementById("darkModeCheck")
@@ -52,15 +52,27 @@ const updatePasswordButton = document.getElementById("updatePasswordButton")
 const usernameInput = document.getElementById("usernameInput")
 const emailInput = document.getElementById("emailInput")
 //-------------------------------Functions-------------------------------\\
-function addNote(id, text, color){
+function changeMode(edit){
+    editMode = edit
+    if(edit){
+        deleteNoteButton.style.visibility = "visible"
+        noteModalLabel.textContent = "Edit Note"
+        noteButton.textContent = "Save"
+    } else{
+        deleteNoteButton.style.visibility = "hidden"
+        noteModalLabel.textContent = "Add Note"
+        noteButton.textContent = "Pin"
+    }
+}
+
+function addNoteElement(id, text, color){
     //------------Note Creation------------\\
     let note = document.createElement("div")
     note.id = id
     note.innerHTML = text
     note.classList.add("note")
-    note.setAttribute("data-bs-toggle", "modal")
-    note.setAttribute("data-bs-target", "#editNoteModal")
     note.style.rotate = parseInt((Math.random()*3 + 1)*Math.pow(-1, parseInt(Math.random()*2 + 1))) + "deg"
+    note.style.setProperty("--fontSize", Math.min(30, Math.max((9/text.length)*105, 9)) + "px")
     //------------Pin Icon------------\\
     let pinIcon = document.createElement("img")
     pinIcon.classList.add("pinIcon")
@@ -83,8 +95,6 @@ function addNote(id, text, color){
     } else{
         note.style.color = "rgb(0,0,0)"
     }
-    //------------Text Scaling------------\\
-    note.style.setProperty("--fontSize", Math.min(35, Math.max((7/text.length)*105, 9)) + "px")
      //------------Append Note------------\\
     board.appendChild(note)
     //------------Return------------\\
@@ -99,7 +109,7 @@ function editNote(id, noteElement, newText, newColor){
     }).then(function(){
         //------------Text------------\\
         noteElement.innerHTML = newText
-        noteElement.style.setProperty("--fontSize", Math.min(35, Math.max((7/newText.length)*105, 9)) + "px")
+        noteElement.style.setProperty("--fontSize", Math.min(30, Math.max((9/newText.length)*105, 9)) + "px")
         //------------Color------------\\
         if(newColor != null){
             noteElement.style.backgroundColor = newColor
@@ -127,6 +137,17 @@ function editNote(id, noteElement, newText, newColor){
     })
 }
 
+function deleteNote(id, noteElement){
+    const boardRef = ref(db, "users/" + auth.currentUser.uid + "/board/" + id)
+    remove(boardRef).then(function(){
+        if(noteElement != null){
+            noteElement.remove()
+        }
+    }).catch(function(err){
+        alert("An error has occured trying to delete your note. Try Again. Error: " + err)
+    })
+}
+
 window.addEventListener("load", function(){
     setTimeout(function(){
         if(auth.currentUser == null){
@@ -137,11 +158,15 @@ window.addEventListener("load", function(){
                     //------------Data from firebase------------\\
                     let noteContents = data.val()
                     let key = data.key
-                    let note = addNote(key, noteContents.text, noteContents.color)
+                    let note = addNoteElement(key, noteContents.text, noteContents.color)
+                    note.setAttribute("data-bs-toggle", "modal")
+                    note.setAttribute("data-bs-target", "#noteModal")
                     lastNote = note
-                    //------------Remove Element------------\\
+                    //------------Select Note------------\\
                     note.addEventListener("click", function(){
                         selectedNote = [key, note]
+                        changeMode(true)
+                        noteInputBox.value = note.textContent
                     })
                     if(autoScrollSwtich.checked == true){
                         note.scrollIntoView({behavior: "smooth"})
@@ -215,16 +240,27 @@ for(let i = 0; i < colors.length; i++){
 } 
 //-------------------------------Buttons-------------------------------\\
 addNoteButton.addEventListener("click", function(){
-    if (addNoteInputBox.value != "" && auth.currentUser != null){
-        const boardRef = ref(db, "users/" + auth.currentUser.uid + "/board")
-        const pushBoardRef = push(boardRef)
-        set(pushBoardRef,{ 
-            text: addNoteInputBox.value,
-            color: currentColor
-        }).then(function(){}).catch(function(err){
-            alert("An error has occurred trying to save your note. Try again. Error: " + err)
-        })
-        addNoteInputBox.value = ""
+    noteInputBox.value = ""
+    changeMode(false)
+})
+
+noteButton.addEventListener("click", function(){
+    if(editMode == false){
+        if (noteInputBox.value != "" && auth.currentUser != null){
+            const boardRef = ref(db, "users/" + auth.currentUser.uid + "/board")
+            const pushBoardRef = push(boardRef)
+            set(pushBoardRef,{ 
+                text: noteInputBox.value,
+                color: currentColor
+            }).then(function(){}).catch(function(err){
+                alert("An error has occurred trying to save your note. Try again. Error: " + err)
+            })
+            noteInputBox.value = ""
+        } 
+    } else{
+        if(selectedNote != [null, null]){
+            editNote(selectedNote[0], selectedNote[1], noteInputBox.value, currentColor)
+        }
     }
 })
 
@@ -277,15 +313,8 @@ autoScrollSwtich.addEventListener("click", function(){
     }
 })
 
-editNoteButton.addEventListener("click", function(){
-    if(selectedNote != [null, null] && editNoteInputBox.value != ""){
-        editNote(selectedNote[0], selectedNote[1], editNoteInputBox.value, currentColor)
-        editNoteInputBox.value = ""
-    }
-})
-
 deleteNoteButton.addEventListener("click", function(){
     if(selectedNote != [null, null] ){
-        // TBA
+        deleteNote(selectedNote[0], selectedNote[1])
     }
 })

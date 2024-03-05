@@ -139,7 +139,7 @@
     margin-bottom: 10px;
 }
 
-#submitButton{
+#addNoteButton{
     width: 75px;
     height: 75px;
     background-color: gainsboro;
@@ -156,7 +156,7 @@
     transition: 0.25s ease;
 }
 
-#submitButton:hover{
+#addNoteButton:hover{
     opacity: 0.7;
 }
 
