@@ -11,7 +11,8 @@
 }
 
 #loginSection{
-    width: 20%;
+    min-width: 200px;
+    width: 25%;
     margin: 20px;
     overflow: hidden;
     text-align: center;
@@ -23,7 +24,8 @@
 }
 
 #registerSection{ 
-    width: 20%;
+    min-width: 200px;
+    width: 25%;
     margin: 20px;
     overflow: hidden;
     text-align: center;
