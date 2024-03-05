@@ -47,17 +47,16 @@
 
 .boardContainer{
     top: 0%;
-    left: 5%;
-    width: 90%;
-    height: 90%;
+    width: 100%;
+    height: 92.3%;
     position: relative;
 }
 
 .board{
+    background-image: url("https://i0.pickpik.com/photos/907/581/284/backdrop-background-blank-board-preview.jpg");
     padding-top: 10px;
     display: grid;
-    border: solid black 3px;
-    border-radius: 10px;
+
     width: 100%;
     height: 100%;
     overflow-y: auto;
