@@ -152,7 +152,7 @@ window.addEventListener("load", function(){
         if(auth.currentUser == null){
             window.location.href = "index.html"
         }else{
-            onChildAdded(ref(db, "users/" + auth.currentUser.uid + "/board"), (data) =>{
+            onChildAdded(ref(db, "users/" + auth.currentUser.uid + "/board"), (data) => {
                 if(auth.currentUser != null){
                     //------------Data from firebase------------\\
                     let noteContents = data.val()
