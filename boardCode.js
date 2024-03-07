@@ -33,7 +33,6 @@ let editMode = false
 let currentColor = "rgb(255, 238, 153)"
 //-------------------------------Elements-------------------------------\\
 const board = document.getElementById("board")
-const signoutButton = document.getElementById("logoutButton")
 
 const addNoteButton = document.getElementById("addNoteButton")
 
@@ -43,8 +42,8 @@ const colorBox = document.getElementById("colorBox")
 const noteButton = document.getElementById("noteButton")
 const deleteNoteButton = document.getElementById("deleteNoteButton")
 
-const darkModeSwitch = document.getElementById("darkModeCheck")
 const autoScrollSwtich = document.getElementById("autoScrollCheck")
+const signoutButton = document.getElementById("logoutButton")
 
 const updateUsernameButton = document.getElementById("updateUsernameButton")
 const updateEmailButton = document.getElementById("updateEmailButton")
@@ -56,11 +55,11 @@ function changeMode(edit){
     editMode = edit
     if(edit){
         deleteNoteButton.style.visibility = "visible"
-        noteModalLabel.textContent = "Edit Note"
+        noteModalLabel.innerHTML = "<b>Edit Note</b>"
         noteButton.textContent = "Save"
     } else{
         deleteNoteButton.style.visibility = "hidden"
-        noteModalLabel.textContent = "Add Note"
+        noteModalLabel.innerHTML = "<b>Add Note</b>"
         noteButton.textContent = "Pin"
     }
 }
@@ -268,7 +267,13 @@ updateUsernameButton.addEventListener("click", function(){
     if(usernameInput.value != "" && auth.currentUser != null){
         update(ref(db, "users/" + auth.currentUser.uid),{
             username: usernameInput.value
+        }).then(function(){
+            alert("Your usename was successfully updated to '" + usernameInput.value + "'")
+        }).catch(function(err){
+            alert("There was an error updating your username. Try again. Error: " + err)
         })
+    } else {
+        alert("Your username cannot be empty.")
     }
 })
 
@@ -285,6 +290,8 @@ updateEmailButton.addEventListener("click", function(){
         }).catch(function(err){
             alert("Error saving the user's email to the database. Try again. Error: " + err)
         })
+    } else {
+        alert("Invalid Email.")
     }
 })
 
@@ -297,14 +304,6 @@ updatePasswordButton.addEventListener("click", function(){
 signoutButton.addEventListener("click", function(){
     auth.signOut()
     window.location.href = "index.html"
-})
-
-darkModeSwitch.addEventListener("click", function(){
-    if(darkModeSwitch.checked == true){
-        document.querySelector("html").setAttribute("data-bs-theme", "dark")
-    } else{
-        document.querySelector("html").setAttribute("data-bs-theme", "light")
-    }
 })
 
 autoScrollSwtich.addEventListener("click", function(){

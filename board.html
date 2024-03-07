@@ -2,16 +2,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Board | Bulletin</title>
-    <link href="style.css" rel="stylesheet">
+    <title>Your Board | Bulletin 📌</title>
+    <link href="boardStyle.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <script src="main.js" type="module"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="boardCode.js" type="module"></script>
 </head>
 <body>
     <div id="boardHeader">
-        <h1>Bulletin 📌 </h1>
+        <h1 id="boardTitle"><b>Bulletin 📌</b></h1>
           <button type="button" id="settingsButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#settingsModal">
             <i class="bi-gear-fill"></i>
         </button>
@@ -26,7 +29,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-4" id="noteModalLabel">Note Configuration</h1>
+                    <h1 class="modal-title fs-4" id="noteModalLabel"><b>Note</b></h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -38,8 +41,8 @@
                     </div> 
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-danger" data-bs-dismiss="modal" id="deleteNoteButton" style="visibility: hidden;">Delete Note</i></button>
-                    <button class="btn btn-primary" data-bs-dismiss="modal" id="noteButton">Pin</button>
+                    <button class="btn btn-danger" data-bs-dismiss="modal" id="deleteNoteButton" style="visibility: hidden;">Unpin</i></button>
+                    <button class="btn btn-secondary" data-bs-dismiss="modal" id="noteButton">Pin</button>
                 </div>
             </div>
         </div>
@@ -50,7 +53,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-4" id="settingsModalLabel">Settings</h1>
+                    <h1 class="modal-title fs-4" id="settingsModalLabel"><b>Settings</b></h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -62,7 +65,7 @@
                             <label for="usernameInput">New Username</label>
                         </div>
                     </form>
-                    <button class="btn btn-success updateButton" id="updateUsernameButton"><i class="bi-check-circle-fill"></i></button>
+                    <button class="btn btn-secondary updateButton" id="updateUsernameButton"><i class="bi-check-circle-fill"></i></button>
                        
                     <h4 class="w-26">Change your Email</h4>
                     <form class="updateInfoForm" class="w-26" submit="return false;">
@@ -71,19 +74,12 @@
                             <label for="emailInput">New Email</label>
                         </div>
                     </form>
-                    <button class="btn btn-success updateButton" id="updateEmailButton"><i class="bi-check-circle-fill"></i></button>
+                    <button class="btn btn-secondary updateButton" id="updateEmailButton"><i class="bi-check-circle-fill"></i></button>
 
                     <h4 class="w-26">Change your Password</h4>
-                    <button class="btn btn-primary" id="updatePasswordButton">Send Password change Email</button>
+                    <button class="btn btn-success" id="updatePasswordButton">Send password change email</button>
 
                     <h4 class="w-26">Other Settings</h4>
-                       
-                    <div id="darkMode" class="settingDiv">
-                        <p id="darkModeText" class="settingText">Dark Mode: </p>
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" role="switch" id="darkModeCheck">
-                        </div>
-                    </div>
 
                     <div id="autoScroll" class="settingDiv">
                         <p id="autoScrollText" class="settingText">AutoScroll to most recent note: </p>
@@ -94,7 +90,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-danger" id="logoutButton" data-bs-dismiss="modal">Sign Out</button>
-                    <button class="btn btn-primary" data-bs-dismiss="modal" id="closeButton">Done</button>
+                    <button class="btn btn-secondary" data-bs-dismiss="modal" id="closeButton">Done</button>
                 </div>
             </div>
         </div>

@@ -1,0 +1,61 @@
+body{
+    background-image: url("https://media.istockphoto.com/id/499905208/photo/seamless-cork-texture-background.jpg?s=612x612&w=0&k=20&c=IxGe-1vXP6QgGjYF3mehwacrAGECMz84gYqnER0b6Qw=");
+}
+
+#loginTitle{
+    font-family: 'Comic Neue', sans-serif;
+    text-align: center;
+    font-size: 40px;
+    padding: 3px;
+    background-color: rgb(249, 222, 100);
+    box-shadow: 0px 2px 20px rgb(31, 30, 30);
+}
+
+#infoTitle{
+    margin-top: 50px;
+    text-align: center;
+    font-family: 'Comic Neue', sans-serif;
+    text-shadow: white 10px;
+}
+
+#accountSection{
+    font-family: 'Comic Neue', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+#loginSection{
+    padding-top: 45px;
+    min-width: 200px;
+    width: 25%;
+    margin: 20px;
+    height: 400px;
+    overflow: hidden;
+    text-align: center;
+    background-color: rgb(249, 222, 100);
+}
+
+#orLabel{
+    font-size: 30px;
+    font-weight: 600;
+}
+
+#registerSection{ 
+    min-width: 200px;
+    width: 25%;
+    margin: 20px;
+    height: 400px;
+    overflow: hidden;
+    text-align: center;
+    background-color: rgb(249, 222, 100);
+}
+
+#loginButton{
+    width: 60%; 
+}
+
+#registerButton{
+    width: 60%; 
+}

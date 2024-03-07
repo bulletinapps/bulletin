@@ -1,48 +1,20 @@
-#loginTitle{
-    text-align: center;
-    font-size: 50px;
-}
-
-#accountSection{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-}
-
-#loginSection{
-    min-width: 200px;
-    width: 25%;
-    margin: 20px;
-    overflow: hidden;
-    text-align: center;
-}
-
-#orLabel{
-    font-size: 30px;
-    font-weight: 600;
-}
-
-#registerSection{ 
-    min-width: 200px;
-    width: 25%;
-    margin: 20px;
-    overflow: hidden;
-    text-align: center;
-}
-
-#loginButton{
-    width: 60%; 
-}
-
-#registerButton{
-    width: 60%; 
+body{
+    background-image: url("https://media.istockphoto.com/id/499905208/photo/seamless-cork-texture-background.jpg?s=612x612&w=0&k=20&c=IxGe-1vXP6QgGjYF3mehwacrAGECMz84gYqnER0b6Qw=");
 }
 
 #boardHeader{
+    font-family: 'Comic Neue', sans-serif;
+    background-color: rgb(249, 222, 100);
+    box-shadow: 0px 2px 20px rgb(31, 30, 30);
     display: flex;
+    font-size: 40px;
     justify-content: center;
     align-items: center;
+    position: relative;
+}
+
+#boardTitle{
+    padding-top: 5px;   
 }
 
 .boardContainer{
@@ -53,10 +25,11 @@
 }
 
 .board{
-    background-image: url("https://i0.pickpik.com/photos/907/581/284/backdrop-background-blank-board-preview.jpg");
-    padding-top: 10px;
+    font-family: 'Comic Neue', sans-serif;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-top: 40px;
     display: grid;
-
     width: 100%;
     height: 100%;
     overflow-y: auto;
@@ -128,7 +101,7 @@
 }
 
 .note:hover .hoverIcon{
-    opacity: 1
+    opacity: 0.6
 } 
 
 .inputBox{
@@ -143,9 +116,9 @@
 #addNoteButton{
     width: 75px;
     height: 75px;
-    background-color: gainsboro;
-    opacity: 0.35;
-    border: gray solid 2px;
+    background-color: rgb(240, 228, 92);
+    opacity: 0.6;
+    border: rgb(22, 22, 21) solid 2px;
     border-radius: 10px;
     font-size: 48px;
     text-align: center;
@@ -158,7 +131,25 @@
 }
 
 #addNoteButton:hover{
-    opacity: 0.7;
+    opacity: 1;
+}
+
+.modal{
+    font-family: 'Comic Neue', sans-serif;
+}
+
+.modal-header{
+    background-color: rgb(249, 222, 100) !important;
+    border-bottom: solid rgb(70, 70, 70) 1px !important;
+}
+
+.modal-body{
+    background-color: rgb(249, 222, 100) !important;
+}
+
+.modal-footer{
+    background-color: rgb(249, 222, 100) !important;
+    border-top: solid rgb(70, 70, 70) 1px !important;
 }
 
 .colorSubheading{
@@ -197,10 +188,15 @@
 }
 
 #settingsButton{
+    position: absolute;
     margin: 10px;
     width: 50px;
     height: 50px;
-    font-size: 20px;
+    font-size: 30px;
+    left: 95%;
+    background-color: transparent;
+    color: black;
+    border: none;
     text-align: center;
 }
 
@@ -246,6 +242,7 @@
     justify-self: center;
     width: 80%;
     margin-left: 10%;
+    margin-top: 5px;
     margin-bottom: 20px;
 }
 
