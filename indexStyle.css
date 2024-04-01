@@ -52,6 +52,16 @@ body{
     background-color: rgb(249, 222, 100);
 }
 
+@media screen and (max-width: 560px) {
+    #loginSection{
+        width: 40%;
+    }
+
+    #registerSection{ 
+        width: 40%;
+    }
+}
+
 #loginButton{
     width: 60%; 
 }

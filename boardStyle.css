@@ -1,10 +1,13 @@
 body{
+    --color-scheme: rgb(249, 222, 100);
+    --text-color-scheme: rgb(0, 0, 0);
     background-image: url("https://media.istockphoto.com/id/499905208/photo/seamless-cork-texture-background.jpg?s=612x612&w=0&k=20&c=IxGe-1vXP6QgGjYF3mehwacrAGECMz84gYqnER0b6Qw=");
 }
 
 #boardHeader{
+    transition: ease 0.25s;
     font-family: 'Comic Neue', sans-serif;
-    background-color: rgb(249, 222, 100);
+    background-color: var(--color-scheme);
     box-shadow: 0px 2px 20px rgb(31, 30, 30);
     display: flex;
     font-size: 40px;
@@ -15,6 +18,7 @@ body{
 
 #boardTitle{
     padding-top: 5px;   
+    color: var(--text-color-scheme);
 }
 
 .boardContainer{
@@ -116,7 +120,7 @@ body{
 #addNoteButton{
     width: 75px;
     height: 75px;
-    background-color: rgb(240, 228, 92);
+    background-color: var(--color-scheme);
     opacity: 0.6;
     border: rgb(22, 22, 21) solid 2px;
     border-radius: 10px;
@@ -126,8 +130,9 @@ body{
     position: absolute;
     z-index: 2;
     top: 87.5%;
-    left: 92.5%;
+    right: 5%;
     transition: 0.25s ease;
+    color: var(--text-color-scheme);
 }
 
 #addNoteButton:hover{
@@ -139,21 +144,28 @@ body{
 }
 
 .modal-header{
-    background-color: rgb(249, 222, 100) !important;
+    transition: ease 0.25s;
+    background-color: var(--color-scheme) !important;
     border-bottom: solid rgb(70, 70, 70) 1px !important;
+    color: var(--text-color-scheme);
 }
 
 .modal-body{
-    background-color: rgb(249, 222, 100) !important;
+    transition: ease 0.25s;
+    background-color: var(--color-scheme) !important;
+    color: var(--text-color-scheme);
 }
 
 .modal-footer{
-    background-color: rgb(249, 222, 100) !important;
+    transition: ease 0.25s;
+    background-color: var(--color-scheme) !important;
     border-top: solid rgb(70, 70, 70) 1px !important;
+    color: var(--text-color-scheme);
 }
 
 .colorSubheading{
     margin-bottom: -1px;
+    color: var(--text-color-scheme);
 }
 
 #colorBox{
@@ -193,11 +205,18 @@ body{
     width: 50px;
     height: 50px;
     font-size: 30px;
-    left: 95%;
+    right: 0%;
     background-color: transparent;
     color: black;
     border: none;
     text-align: center;
+    color: var(--text-color-scheme);
+}
+
+#colorSchemePicker{
+    border: black solid 2px;
+    width: 100px;
+    padding: 0px;
 }
 
 #closeButton{
@@ -244,6 +263,7 @@ body{
     margin-left: 10%;
     margin-top: 5px;
     margin-bottom: 20px;
+    border: black solid 1px;
 }
 
 .settingDiv{
@@ -251,8 +271,10 @@ body{
     margin-left: 10px;
     text-align: center;
     height: 35px;
+    color: var(--text-color-scheme);
 }
 
 .settingText{
     margin-right: 10px;
+    color: var(--text-color-scheme);
 }

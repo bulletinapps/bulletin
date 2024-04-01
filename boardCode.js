@@ -35,6 +35,7 @@ let currentColor = "rgb(255, 238, 153)"
 const board = document.getElementById("board")
 
 const addNoteButton = document.getElementById("addNoteButton")
+const colorSchemePicker = document.getElementById("colorSchemePicker")
 
 const noteModalLabel = document.getElementById("noteModalLabel")
 const noteInputBox = document.getElementById("noteInputBox")
@@ -199,7 +200,8 @@ const colors = [
 
 const customTextColors = {
     "rgb(48, 42, 42)": "rgb(255, 255, 255)",
-    "rgb(103, 43, 255)": "rgb(255, 255, 255)"
+    "rgb(103, 43, 255)": "rgb(255, 255, 255)",
+    "rgb(142, 108, 56)": "rgb(255, 255, 255)"
 }
 
 let selectedElement = null
@@ -309,6 +311,22 @@ signoutButton.addEventListener("click", function(){
 autoScrollSwtich.addEventListener("click", function(){
     if(autoScrollSwtich.checked == true && lastNote != null){
         lastNote.scrollIntoView({behavior: "smooth"})
+    }
+})
+
+colorSchemePicker.addEventListener("input", function(){
+    document.body.style.setProperty("--color-scheme", colorSchemePicker.value)
+
+    //STOPPED HERE
+    let hexString = colorSchemePicker.value.substring(1)
+    let r = parseInt(hexString.substring(1,3), 16)
+    let g = parseInt(hexString.substring(3,5), 16)
+    let b = parseInt(hexString.substring(5), 16)
+    console.log(r + " " + g + " " + b)
+    if(r > 99 || g > 99 || b > 99){
+        document.body.style.setProperty("--text-color-scheme", "rgb(0,0,0)")
+    } else {
+        document.body.style.setProperty("--text-color-scheme", "rgb(255, 255, 255)")
     }
 })
 
