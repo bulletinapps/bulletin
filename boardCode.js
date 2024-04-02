@@ -20,9 +20,7 @@ const db = getDatabase()
 const auth = getAuth()
 //-------------------------------Security-------------------------------\\
 onAuthStateChanged(auth, function(user){
-    if(user){
-        
-    } else{
+    if(!user){
         window.location.href = "index.html"
     }
 })
@@ -52,6 +50,37 @@ const updatePasswordButton = document.getElementById("updatePasswordButton")
 const usernameInput = document.getElementById("usernameInput")
 const emailInput = document.getElementById("emailInput")
 //-------------------------------Functions-------------------------------\\
+function convertHexToDecimal(hexValue){
+    let finalHexValue = 0
+    let index = hexValue.length
+    for(let i = 0; i < hexValue.length; i++){
+        let componentToConvert = hexValue.substring(i, i+1)
+        let convertedComponent = null
+        if(Number.isNaN(Number(componentToConvert))){
+            if(componentToConvert.toLowerCase() == "a"){
+                convertedComponent = 10
+            } else if(componentToConvert.toLowerCase() == "b"){
+                convertedComponent = 11
+            } else if(componentToConvert.toLowerCase() == "c"){
+                convertedComponent = 12
+            } else if(componentToConvert.toLowerCase() == "d"){
+                convertedComponent = 13
+            } else if(componentToConvert.toLowerCase() == "e"){
+                convertedComponent = 14
+            } else if(componentToConvert.toLowerCase() == "f"){
+                convertedComponent = 15
+            } else{
+                return null
+            }
+        } else{
+            convertedComponent = Number(componentToConvert)
+        }
+        index--;
+        finalHexValue += convertedComponent*Math.pow(16, index)
+    }
+    return finalHexValue
+}
+
 function changeMode(edit){
     editMode = edit
     if(edit){
@@ -174,7 +203,7 @@ window.addEventListener("load", function(){
                 }
             })
         }
-    }, 1000)
+    }, 500)
 })
 //---------------------Colors---------------------\\
 const colors = [
@@ -316,14 +345,11 @@ autoScrollSwtich.addEventListener("click", function(){
 
 colorSchemePicker.addEventListener("input", function(){
     document.body.style.setProperty("--color-scheme", colorSchemePicker.value)
-
-    //STOPPED HERE
-    let hexString = colorSchemePicker.value.substring(1)
-    let r = parseInt(hexString.substring(1,3), 16)
-    let g = parseInt(hexString.substring(3,5), 16)
-    let b = parseInt(hexString.substring(5), 16)
-    console.log(r + " " + g + " " + b)
-    if(r > 99 || g > 99 || b > 99){
+    let hexString = colorSchemePicker.value
+    let r = convertHexToDecimal(hexString.substring(1,3))
+    let g = convertHexToDecimal(hexString.substring(3,5))
+    let b = convertHexToDecimal(hexString.substring(5))
+    if(r > 125 || g > 125 || b > 125){
         document.body.style.setProperty("--text-color-scheme", "rgb(0,0,0)")
     } else {
         document.body.style.setProperty("--text-color-scheme", "rgb(255, 255, 255)")
