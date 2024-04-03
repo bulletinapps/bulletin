@@ -34,6 +34,7 @@ const board = document.getElementById("board")
 
 const addNoteButton = document.getElementById("addNoteButton")
 const colorSchemePicker = document.getElementById("colorSchemePicker")
+const fontPicker = document.getElementById("fontPicker")
 
 const noteModalLabel = document.getElementById("noteModalLabel")
 const noteInputBox = document.getElementById("noteInputBox")
@@ -138,7 +139,11 @@ function editNote(id, noteElement, newText, newColor){
     }).then(function(){
         //------------Text------------\\
         noteElement.innerHTML = newText
-        noteElement.style.setProperty("--fontSize", Math.min(30, Math.max((9/newText.length)*105, 9)) + "px")
+        console.log(newText.length)
+        //STOPPED HERE
+        console.log(newText.length*(0.005 * (newText.length%25)))
+        console.log(30-newText.length*(0.2 - (0.005 * (newText.length%10))))
+        noteElement.style.setProperty("--fontSize", Math.min(30, Math.max(30-newText.length*(0.2 - (0.005 * (newText.length%25))), 9)) + "px")
         //------------Color------------\\
         if(newColor != null){
             noteElement.style.backgroundColor = newColor
@@ -354,6 +359,10 @@ colorSchemePicker.addEventListener("input", function(){
     } else {
         document.body.style.setProperty("--text-color-scheme", "rgb(255, 255, 255)")
     }
+})
+
+fontPicker.addEventListener("change", function(){
+    document.body.style.setProperty("--font", fontPicker.value)
 })
 
 deleteNoteButton.addEventListener("click", function(){
