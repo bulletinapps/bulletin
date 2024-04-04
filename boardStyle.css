@@ -104,6 +104,10 @@ body{
         width: 30px;
         top: -15px;
     }
+
+    .hoverIcon{
+        top: 25%;
+    }
 }
 
 .note:hover .hoverIcon{
@@ -146,10 +150,11 @@ body{
 }
 
 .modal-header{
+    align-items: center;
     transition: ease 0.25s;
     background-color: var(--color-scheme) !important;
     border-bottom: solid rgb(70, 70, 70) 1px !important;
-    color: var(--text-color-scheme);
+    color: var(--text-color-scheme) !important;
 }
 
 .modal-body{
@@ -162,6 +167,16 @@ body{
     transition: ease 0.25s;
     background-color: var(--color-scheme) !important;
     border-top: solid rgb(70, 70, 70) 1px !important;
+    color: var(--text-color-scheme);
+}
+
+.modalCloseButton{
+    width: 50px;
+    height: 30px;
+    font-size: 22.5px;
+    font-weight: bold;
+    background-color: transparent;
+    border: transparent;
     color: var(--text-color-scheme);
 }
 
@@ -217,17 +232,16 @@ body{
 
 #colorSchemePicker{
     border: black solid 2px;
+    overflow: auto;
     width: 100px;
     padding: 0px;
 }
 
-#closeButton{
-    width: 150px;
-}
-
-#logoutButton{
-    margin: 10px;
-    width: 150px;
+.dropdown{
+    border: black solid 2px;
+    border-radius: 10px;
+    width: 200px;
+    height: 25px;
 }
 
 #settingsSection{
@@ -239,6 +253,7 @@ body{
 .settingsInput{
     display: flex;
     align-items: center;
+    color: gray !important;
 }
 
 .updateButton{
@@ -250,6 +265,15 @@ body{
     margin-left: 82.5%;
     margin-top: -67.5px;
     z-index: 2;
+}
+
+#logoutButton{
+    margin: 10px;
+    width: 150px;
+}
+
+#closeButton{
+    width: 150px;
 }
 
 @media screen and (max-width: 560px) {

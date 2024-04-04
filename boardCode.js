@@ -102,7 +102,7 @@ function addNoteElement(id, text, color){
     note.innerHTML = text
     note.classList.add("note")
     note.style.rotate = parseInt((Math.random()*3 + 1)*Math.pow(-1, parseInt(Math.random()*2 + 1))) + "deg"
-    note.style.setProperty("--fontSize", Math.min(30, Math.max((9/text.length)*105, 9)) + "px")
+    note.style.setProperty("--fontSize", Math.max(30*Math.pow(0.96, Math.floor(text.length/5)), 9) + "px")
     //------------Pin Icon------------\\
     let pinIcon = document.createElement("img")
     pinIcon.classList.add("pinIcon")
@@ -139,11 +139,7 @@ function editNote(id, noteElement, newText, newColor){
     }).then(function(){
         //------------Text------------\\
         noteElement.innerHTML = newText
-        console.log(newText.length)
-        //STOPPED HERE
-        console.log(newText.length*(0.005 * (newText.length%25)))
-        console.log(30-newText.length*(0.2 - (0.005 * (newText.length%10))))
-        noteElement.style.setProperty("--fontSize", Math.min(30, Math.max(30-newText.length*(0.2 - (0.005 * (newText.length%25))), 9)) + "px")
+        noteElement.style.setProperty("--fontSize", Math.max(30*Math.pow(0.96, Math.floor(newText.length/5)), 9) + "px")
         //------------Color------------\\
         if(newColor != null){
             noteElement.style.backgroundColor = newColor
