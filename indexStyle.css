@@ -16,11 +16,14 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    text-align: center;
     margin-top: 30px;
+    width: 100%;
+    margin: auto;
 }
 
 #loginSection{
+    transition: ease 0.25s;
     position: relative;
     box-shadow: 0px 2px 20px rgb(31, 30, 30);
     padding-top: 45px;
@@ -32,11 +35,13 @@ body{
     text-align: center;
     background-color: rgb(249, 222, 100);
 }
+
 #loginButton{
     width: 60%; 
 }
 
 #orLabel{
+    transition: ease 0.25s;
     text-align: center;
     border-radius: 10px;
     width: 50px;
@@ -46,6 +51,7 @@ body{
 }
 
 #registerSection{ 
+    transition: ease 0.25s;
     box-shadow: 0px 2px 20px rgb(31, 30, 30);
     min-width: 200px;
     width: 30%;
@@ -61,6 +67,7 @@ body{
 }
 
 #infoSection{
+    transition: ease 0.25s;
     display: flex;
     margin-left: 5%;
     margin-top: 30px;
@@ -71,27 +78,57 @@ body{
     background-color: rgb(249, 222, 100);
     border-radius: 10px;
     box-shadow: 0px 2px 20px rgb(31, 30, 30);
+    overflow: auto;
 }
 
 #textInfo{
+    font-size: 25px;
+    margin: auto;
     width: 50%;
-    height: auto;
     align-items: center;
     text-align: center;
-    background-color: antiquewhite;
+    background-color: transparent;
 }
 
 #imgInfo{
-    width: 50%;
-    background-color: aliceblue;
+    max-width: 50%;
+    background-color: transparent;
 }
 
-@media screen and (max-width: 1250px) {
+
+@media screen and (max-width: 1100px) and (min-width: 750px) {
     #loginSection{
-        width: 40%;
+        width: 70%;
     }
 
-    #registerSection{ 
-        width: 40%;
+    #orLabel{
+        width: 7.5%;
+    }
+
+    #registerSection{
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    #accountSection{
+        display: block;
+    }
+    
+    #loginSection{
+        width: 70%;
+        margin: auto;
+        margin-top: 20px;
+    }
+
+    #orLabel{
+        margin: auto;
+        margin-top: 20px;
+    }
+
+    #registerSection{
+        width: 70%;
+        margin: auto;
+        margin-top: 20px;
     }
 }
