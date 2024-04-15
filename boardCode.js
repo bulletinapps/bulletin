@@ -329,7 +329,11 @@ updateEmailButton.addEventListener("click", function(){
 
 updatePasswordButton.addEventListener("click", function(){
     if(auth.currentUser != null){
-        sendPasswordResetEmail(auth, auth.currentUser.email)
+        sendPasswordResetEmail(auth, auth.currentUser.email).then(function(){
+            alert("Successfully sent password reset email. Check your email.")
+        }).catch(function(err){
+            alert("An error has occurred. Error: " + err)
+        })
     }
 })
 
