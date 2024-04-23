@@ -26,6 +26,7 @@
                 </div>
             </form>
             <button class="btn btn-warning" id="loginButton">Login</button>
+            <button class="btn btn-danger" id="forgotPasswordButton">Forgot Password?</button>
         </div>
         <div id="orLabel"><b>OR</b></div>
         <div id="registerSection">
@@ -64,7 +65,7 @@
         // Import functions
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"
         import { getDatabase, set, ref, push, remove, onChildAdded} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"
-        import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
         // Your web app's Firebase configuration
         const firebaseConfig = {
@@ -87,6 +88,7 @@
         const signUpEmail = document.getElementById("emailInputSignUp")
         const signUpPassword = document.getElementById("passwordInputSignUp")
         const signUpUsername = document.getElementById("usernameInputSignUp")
+        const forgotPasswordButton = document.getElementById("forgotPasswordButton")
 
         function loginUser(email, password){
             if(email != null && password != null){
@@ -125,6 +127,16 @@
         signupButton.addEventListener("click", function(){
             createUser(signUpUsername.value, signUpEmail.value, signUpPassword.value)
         })
+
+        forgotPasswordButton.addEventListener("click", function(){
+            let email = prompt("Enter the email that is attached to your account: ")
+            sendPasswordResetEmail(getAuth(), email).then(function(){
+                alert("A password reset email has been sent to your inbox. Check spam if you don't see it in your inbox.")
+            }).catch(function(err){
+                alert("There was an error when sending the password reset email. Error: " + err)
+            })
+        })
+
     </script>
 </body>
 </html>
