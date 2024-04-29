@@ -50,12 +50,18 @@ const updateEmailButton = document.getElementById("updateEmailButton")
 const updatePasswordButton = document.getElementById("updatePasswordButton")
 const usernameInput = document.getElementById("usernameInput")
 const emailInput = document.getElementById("emailInput")
-//-------------------------------Themes-------------------------------\\
-document.body.style.setProperty("--color-scheme", sessionStorage.getItem("color-scheme"))
-colorSchemePicker.value = sessionStorage.getItem("color-scheme")
-document.body.style.setProperty("--font", sessionStorage.getItem("font"))
-fontPicker.value = sessionStorage.getItem("font")
-autoScrollSwtich.checked = sessionStorage.getItem("auto-scroll")
+//-------------------------------Saved Settings-------------------------------\\
+if(sessionStorage.getItem("color-scheme") != null){
+    document.body.style.setProperty("--color-scheme", sessionStorage.getItem("color-scheme"))
+    colorSchemePicker.value = sessionStorage.getItem("color-scheme")
+}
+if(sessionStorage.getItem("font") != null){
+    document.body.style.setProperty("--font", sessionStorage.getItem("font"))
+    fontPicker.value = sessionStorage.getItem("font")
+}
+if(sessionStorage.getItem("auto-scroll") == "true"){
+    autoScrollSwtich.checked = sessionStorage.getItem("auto-scroll")
+}
 //-------------------------------Functions-------------------------------\\
 function convertRGBtoHex(rgbString){
     let parts = ["", "", ""]
