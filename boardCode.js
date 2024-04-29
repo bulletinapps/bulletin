@@ -28,7 +28,6 @@ onAuthStateChanged(auth, function(user){
 let lastNote = null
 let selectedNote = [null, null] // [0] = note id, [1] = note element
 let editMode = false
-let currentColor = "rgb(255, 238, 153)"
 //-------------------------------Elements-------------------------------\\
 const board = document.getElementById("board")
 
@@ -39,6 +38,7 @@ const fontPicker = document.getElementById("fontPicker")
 const noteModalLabel = document.getElementById("noteModalLabel")
 const noteInputBox = document.getElementById("noteInputBox")
 const colorBox = document.getElementById("colorBox")
+const customColorChoice = document.getElementById("customColorChoice")
 const noteButton = document.getElementById("noteButton")
 const deleteNoteButton = document.getElementById("deleteNoteButton")
 
@@ -51,6 +51,33 @@ const updatePasswordButton = document.getElementById("updatePasswordButton")
 const usernameInput = document.getElementById("usernameInput")
 const emailInput = document.getElementById("emailInput")
 //-------------------------------Functions-------------------------------\\
+function convertRGBtoHex(rgbString){
+    let parts = ["", "", ""]
+    let index = 0
+    let flag = false
+    for (let i = 0; i < rgbString.length; i++) {
+        if(!Number.isNaN(Number(rgbString[i]))){
+            flag = true
+            parts[index] += rgbString[i]
+        }
+        else if(flag){
+            index += 1
+            flag = false
+        }
+    }
+    let finalHexValue = "#"
+    for(let i = 0; i < parts.length; i++){
+        let hexPart = parseInt(parts[i]).toString(16)
+        if(hexPart.length == 1){
+            hexPart = "0" + hexPart
+        }
+        finalHexValue += hexPart
+    }
+    return finalHexValue
+}
+
+convertRGBtoHex("rgb(200,100,0)")
+
 function convertHexToDecimal(hexValue){
     let finalHexValue = 0
     let index = hexValue.length
@@ -80,6 +107,17 @@ function convertHexToDecimal(hexValue){
         finalHexValue += convertedComponent*Math.pow(16, index)
     }
     return finalHexValue
+}
+
+function isColorTooBright(hexString){
+    let r = convertHexToDecimal(hexString.substring(1,3))
+    let g = convertHexToDecimal(hexString.substring(3,5))
+    let b = convertHexToDecimal(hexString.substring(5))
+    if(r > 125 || g > 125 || b > 125){
+        return false
+    } else {
+        return true
+    }
 }
 
 function changeMode(edit){
@@ -118,12 +156,12 @@ function addNoteElement(id, text, color){
     if(color != null){
         note.style.backgroundColor = color
     } else{
-        note.style.backgroundColor = "rgb(238, 221, 70)"
+        note.style.backgroundColor = "#eedd46"
     }
-    if(customTextColors[color] != undefined){
-        note.style.color = customTextColors[color] 
+    if(isColorTooBright(color)){
+        note.style.color = "#ffffff"
     } else{
-        note.style.color = "rgb(0,0,0)"
+        note.style.color = "#000000"
     }
      //------------Append Note------------\\
     board.appendChild(note)
@@ -144,12 +182,12 @@ function editNote(id, noteElement, newText, newColor){
         if(newColor != null){
             noteElement.style.backgroundColor = newColor
         } else{
-            noteElement.style.backgroundColor = "rgb(238, 221, 70)"
+            noteElement.style.backgroundColor = "#eedd46"
         }
-        if(customTextColors[newColor] != undefined){
-            noteElement.style.color = customTextColors[newColor] 
+        if(isColorTooBright(newColor)){
+            noteElement.style.color = "#ffffff"
         } else{
-            noteElement.style.color = "rgb(0,0,0)"
+            noteElement.style.color = "#000000"
         }
         //------------Pin Icon------------\\
         let pinIcon = document.createElement("img")
@@ -195,6 +233,7 @@ window.addEventListener("load", function(){
                     //------------Select Note------------\\
                     note.addEventListener("click", function(){
                         selectedNote = [key, note]
+                        customColorChoice.value = convertRGBtoHex(note.style.backgroundColor)
                         changeMode(true)
                         noteInputBox.value = note.textContent
                     })
@@ -208,33 +247,25 @@ window.addEventListener("load", function(){
 })
 //---------------------Colors---------------------\\
 const colors = [
-    "rgb(234, 31, 31)",
-    "rgb(234, 153, 153)",
-    "rgb(255, 147, 0)",
-    "rgb(255, 213, 86)",
-    "rgb(255, 238, 0)",
-    "rgb(255, 238, 153)",
-    "rgb(58, 190, 0)",
-    "rgb(147, 196, 125)",
-    "rgb(0, 134, 255)",
-    "rgb(111, 168, 220)",
-    "rgb(247, 51, 148)",
-    "rgb(255, 162, 211)",
-    "rgb(103, 43, 255)",
-    "rgb(142, 124, 195)",
-    "rgb(48, 42, 42)",
-    "rgb(243, 246, 244)",   
-    "rgb(142, 108, 56)",
-    "rgb(255, 229, 180)"
+    "#ea1f1f",
+    "#ea9999",
+    "#ff9300",
+    "#ffd556",
+    "#ffee00",
+    "#ffee99",
+    "#3abe00",
+    "#93c47d",
+    "#0086ff",
+    "#6fa8dc",
+    "#f73394",
+    "#ffa2d3",
+    "#672bff",
+    "#8e7cc3",
+    "#302a2a",
+    "#f3f6f4",
+    "#8e6c38"
 ]
 
-const customTextColors = {
-    "rgb(48, 42, 42)": "rgb(255, 255, 255)",
-    "rgb(103, 43, 255)": "rgb(255, 255, 255)",
-    "rgb(142, 108, 56)": "rgb(255, 255, 255)"
-}
-
-let selectedElement = null
 for(let i = 0; i < colors.length; i++){
     let colorChoice = document.createElement("div")
     colorChoice.classList.add("colorChoice")
@@ -242,31 +273,8 @@ for(let i = 0; i < colors.length; i++){
     colorChoice.id = colors[i]
     colorBox.appendChild(colorChoice)
 
-    let selectedIcon = document.createElement("i")
-    selectedIcon.classList.add("bi-check2")
-    selectedIcon.classList.add("selectedIcon")
-
-    if(colors[i] == currentColor){
-        selectedIcon.style.visibility = "visible"
-        selectedElement = colorChoice
-    } else{
-        selectedIcon.style.visibility = "hidden"
-    }
-    if(customTextColors[colors[i]] != undefined){
-        selectedIcon.style.color = customTextColors[colors[i]]
-    } else{
-        selectedIcon.style.color = "rgb(0,0,0)"
-    }
-    colorChoice.appendChild(selectedIcon)
-
     colorChoice.addEventListener("click", function(){
-        currentColor = colors[i]
-        if(selectedElement != null){
-            selectedElement.childNodes[0].style.visibility = "hidden"
-        }
-        currentColor = colors[i]
-        selectedElement = colorChoice
-        selectedElement.childNodes[0].style.visibility = "visible"
+        customColorChoice.value = colors[i]
     })
 } 
 //-------------------------------Buttons-------------------------------\\
@@ -282,7 +290,7 @@ noteButton.addEventListener("click", function(){
             const pushBoardRef = push(boardRef)
             set(pushBoardRef,{ 
                 text: noteInputBox.value,
-                color: currentColor
+                color: customColorChoice.value
             }).then(function(){}).catch(function(err){
                 alert("An error has occurred trying to save your note. Try again. Error: " + err)
             })
@@ -290,7 +298,7 @@ noteButton.addEventListener("click", function(){
         } 
     } else{
         if(selectedNote != [null, null]){
-            editNote(selectedNote[0], selectedNote[1], noteInputBox.value, currentColor)
+            editNote(selectedNote[0], selectedNote[1], noteInputBox.value, customColorChoice.value)
         }
     }
 })
@@ -350,14 +358,10 @@ autoScrollSwtich.addEventListener("click", function(){
 
 colorSchemePicker.addEventListener("input", function(){
     document.body.style.setProperty("--color-scheme", colorSchemePicker.value)
-    let hexString = colorSchemePicker.value
-    let r = convertHexToDecimal(hexString.substring(1,3))
-    let g = convertHexToDecimal(hexString.substring(3,5))
-    let b = convertHexToDecimal(hexString.substring(5))
-    if(r > 125 || g > 125 || b > 125){
-        document.body.style.setProperty("--text-color-scheme", "rgb(0,0,0)")
+    if(!isColorTooBright(colorSchemePicker.value)){
+        document.body.style.setProperty("--text-color-scheme", "#000000")
     } else {
-        document.body.style.setProperty("--text-color-scheme", "rgb(255, 255, 255)")
+        document.body.style.setProperty("--text-color-scheme", "#ffffff")
     }
 })
 
