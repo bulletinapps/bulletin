@@ -32,8 +32,6 @@ let editMode = false
 const board = document.getElementById("board")
 
 const addNoteButton = document.getElementById("addNoteButton")
-const colorSchemePicker = document.getElementById("colorSchemePicker")
-const fontPicker = document.getElementById("fontPicker")
 
 const noteModalLabel = document.getElementById("noteModalLabel")
 const noteInputBox = document.getElementById("noteInputBox")
@@ -42,6 +40,8 @@ const customColorChoice = document.getElementById("customColorChoice")
 const noteButton = document.getElementById("noteButton")
 const deleteNoteButton = document.getElementById("deleteNoteButton")
 
+const colorSchemePicker = document.getElementById("colorSchemePicker")
+const fontPicker = document.getElementById("fontPicker")
 const autoScrollSwtich = document.getElementById("autoScrollCheck")
 const signoutButton = document.getElementById("logoutButton")
 
@@ -50,6 +50,12 @@ const updateEmailButton = document.getElementById("updateEmailButton")
 const updatePasswordButton = document.getElementById("updatePasswordButton")
 const usernameInput = document.getElementById("usernameInput")
 const emailInput = document.getElementById("emailInput")
+//-------------------------------Themes-------------------------------\\
+document.body.style.setProperty("--color-scheme", sessionStorage.getItem("color-scheme"))
+colorSchemePicker.value = sessionStorage.getItem("color-scheme")
+document.body.style.setProperty("--font", sessionStorage.getItem("font"))
+fontPicker.value = sessionStorage.getItem("font")
+autoScrollSwtich.checked = sessionStorage.getItem("auto-scroll")
 //-------------------------------Functions-------------------------------\\
 function convertRGBtoHex(rgbString){
     let parts = ["", "", ""]
@@ -354,10 +360,12 @@ autoScrollSwtich.addEventListener("click", function(){
     if(autoScrollSwtich.checked == true && lastNote != null){
         lastNote.scrollIntoView({behavior: "smooth"})
     }
+    sessionStorage.setItem("auto-scroll", autoScrollSwtich.checked)
 })
 
 colorSchemePicker.addEventListener("input", function(){
     document.body.style.setProperty("--color-scheme", colorSchemePicker.value)
+    sessionStorage.setItem("color-scheme", colorSchemePicker.value)
     if(!isColorTooBright(colorSchemePicker.value)){
         document.body.style.setProperty("--text-color-scheme", "#000000")
     } else {
@@ -367,6 +375,7 @@ colorSchemePicker.addEventListener("input", function(){
 
 fontPicker.addEventListener("change", function(){
     document.body.style.setProperty("--font", fontPicker.value)
+    sessionStorage.setItem("font", fontPicker.value)
 })
 
 deleteNoteButton.addEventListener("click", function(){

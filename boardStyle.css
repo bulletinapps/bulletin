@@ -7,7 +7,6 @@ body{
 }
 
 #boardHeader{
-    transition: ease 0.25s;
     font-family: var(--font);
     background-color: var(--color-scheme);
     box-shadow: 0px 2px 20px rgb(31, 30, 30);
@@ -137,7 +136,6 @@ body{
     z-index: 2;
     top: 87.5%;
     right: 5%;
-    transition: 0.25s ease;
     color: var(--text-color-scheme);
 }
 
@@ -268,6 +266,11 @@ body{
 }
 
 #logoutButton{
+    margin: 10px;
+    width: 150px;
+}
+
+#doneButton{
     margin: 10px;
     width: 150px;
 }
