@@ -150,7 +150,6 @@ body{
 
 .modal-header{
     align-items: center;
-    transition: ease 0.25s;
     background-color: var(--color-scheme) !important;
     border-bottom: solid rgb(70, 70, 70) 1px !important;
     color: var(--text-color-scheme) !important;
