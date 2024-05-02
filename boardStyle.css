@@ -84,31 +84,6 @@ body{
     width: 40px;
 }
 
-@media screen and (max-width: 560px) {
-    .board{
-        grid-template-columns: repeat(auto-fit, 125px);
-        grid-template-rows: repeat(auto-fit, 125px);
-    }
-
-    .note{
-        width: 100px;
-        height: 100px;
-        margin: 10px 10px;
-        font-size: calc(var(--fontSize)/1.5) !important;
-    }
-
-    .pinIcon{
-        left: 35px;
-        height: 30px;
-        width: 30px;
-        top: -15px;
-    }
-
-    .hoverIcon{
-        top: 25%;
-    }
-}
-
 .note:hover .hoverIcon{
     opacity: 0.6
 } 
@@ -278,12 +253,6 @@ body{
     width: 150px;
 }
 
-@media screen and (max-width: 560px) {
-    .updateButton{
-       margin-left: 77.5%;
-    } 
-}
-
 #updatePasswordButton{
     text-align: center;
     justify-self: center;
@@ -305,3 +274,37 @@ body{
     margin-right: 10px;
     color: var(--text-color-scheme);
 }
+
+@media screen and (max-width: 560px) {
+    .board{
+        grid-template-columns: repeat(auto-fit, 125px);
+        grid-template-rows: repeat(auto-fit, 125px);
+    }
+
+    .note{
+        width: 100px;
+        height: 100px;
+        margin: 10px 10px;
+        font-size: calc(var(--fontSize)/1.5) !important;
+    }
+
+    .pinIcon{
+        left: 35px;
+        height: 30px;
+        width: 30px;
+        top: -15px;
+    }
+
+    .hoverIcon{
+        top: 25%;
+    }
+    
+    .updateButton{
+       margin-left: 77.5%;
+    } 
+
+    #addNoteButton{
+        font-size: 25px;
+    }
+}
+
